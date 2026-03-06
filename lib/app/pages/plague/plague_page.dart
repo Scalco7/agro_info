@@ -7,7 +7,7 @@ class PlaguePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(title: 'Pragas', icon: Icons.bug_report_outlined),
     );
   }
 }

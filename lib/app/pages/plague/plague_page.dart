@@ -1,4 +1,5 @@
 import 'package:agro_info/app/common/widgets/app_bar.dart';
+import 'package:agro_info/app/common/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class PlaguePage extends StatelessWidget{
@@ -8,6 +9,8 @@ class PlaguePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Pragas', icon: Icons.bug_report_outlined),
+      backgroundColor: Colors.white,
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

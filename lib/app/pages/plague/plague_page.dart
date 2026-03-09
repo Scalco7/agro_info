@@ -10,7 +10,7 @@ class PlaguePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Pragas', icon: Icons.bug_report_outlined),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(),
       body: Column(
         children: [

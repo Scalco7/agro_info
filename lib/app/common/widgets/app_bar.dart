@@ -11,9 +11,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         spacing: 12,
-        children: <Widget>[Icon(icon), Text(title)],
+        children: <Widget>[
+          Icon(icon, size: 26, color: Theme.of(context).colorScheme.onPrimary),
+          Text(
+            title,
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontWeight: FontWeight(500)),
+          ),
+        ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 

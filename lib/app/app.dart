@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Agro Info',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.lightGreenAccent),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromRGBO(72, 183, 139, 1)),
       ),
       home: const AppRoute(),
     );

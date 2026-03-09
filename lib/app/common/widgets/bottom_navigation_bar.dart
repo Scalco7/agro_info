@@ -13,8 +13,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        selectedItemColor: Theme.of(context).colorScheme.inverseSurface,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        selectedItemColor: Theme.of(context).colorScheme.onPrimary,
+        unselectedItemColor: Theme.of(context).colorScheme.inverseSurface,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight(600)),
         items: [
           BottomNavigationBarItem(

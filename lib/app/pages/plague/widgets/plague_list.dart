@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PlagueList extends StatelessWidget {
-  const PlagueList({super.key});
+  final String searchTerm;
+  const PlagueList({super.key, this.searchTerm = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class PlagueList extends StatelessWidget {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150),
               itemCount: plagueProvider.plagues!.length,
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 0),
               itemBuilder: (context, index) =>
                   PlagueWidget(plague: plagueProvider.plagues![index]),
             );

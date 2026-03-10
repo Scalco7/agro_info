@@ -1,3 +1,4 @@
+import 'package:agro_info/app/common/enums/app_route_enum.dart';
 import 'package:agro_info/app/pages/plague/plague_page.dart';
 import 'package:agro_info/app/pages/plantingZone/planting_zone_page.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,9 @@ class AppRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      initialRoute: "/plagues",
+      initialRoute: AppRouteEnum.plague.name,
       onGenerateRoute: (settings) {
-        if (settings.name == "/zarc-calc") {
+        if (settings.name == AppRouteEnum.zarcCalc.name) {
           return MaterialPageRoute(
             builder: (context) => const PlantingZonePage(),
           );

@@ -1,3 +1,4 @@
+import 'package:agro_info/app/common/enums/app_route_enum.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -5,18 +6,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key, required this.index});
 
   void onTapRoute(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        Navigator.of(
-          context,
-        ).pushReplacementNamed("/plagues");
-        break;
-      case 1:
-        Navigator.of(
-          context,
-        ).pushReplacementNamed("/zarc-calc");
-        break;
-    }
+    AppRouteEnum appRoute = AppRouteEnum.fromIndex(index);
+    
+    Navigator.of(
+      context,
+    ).pushReplacementNamed(appRoute.name);
   }
 
   @override

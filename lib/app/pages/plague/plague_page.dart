@@ -12,7 +12,7 @@ class PlaguePage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: 'Pragas', icon: Icons.bug_report_outlined),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 0),
       body: Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Column(

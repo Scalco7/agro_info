@@ -33,7 +33,23 @@ class PlagueList extends StatelessWidget {
               ],
             );
           } else if (plagueProvider.plagues!.isEmpty) {
-            return Center(child: Text("carregando pragas!"));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 20,
+              children: [
+                Text(
+                  "Nenhuma praga encontrada!",
+                  style: TextStyle(fontWeight: FontWeight(500), fontSize: 16),
+                ),
+                if (plagueProvider.searchTerm.isNotEmpty)
+                  ElevatedButton(
+                    onPressed: () {
+                      plagueProvider.searchTerm = "";
+                    },
+                    child: Text("Limpar Busca"),
+                  ),
+              ],
+            );
           } else {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

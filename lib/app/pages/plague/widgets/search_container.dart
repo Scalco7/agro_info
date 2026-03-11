@@ -1,4 +1,5 @@
 import 'package:agro_info/app/common/providers/plague_provider.dart';
+import 'package:agro_info/app/common/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +16,11 @@ class SearchContainer extends StatelessWidget {
         spacing: 20,
         children: [
           Expanded(
-            child: TextField(
+            child: AppTextField(
               controller: plagueProvider.searchController,
-              decoration: InputDecoration(
-                labelText: "Pesquisar Pragas",
-                prefixIcon: Icon(Icons.search_outlined),
-                hintText: "Pesquisar...",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+              labelText: "Pesquisar Pragas",
+              prefixIcon: Icon(Icons.search_outlined),
+              hintText: "Pesquisar...",
             ),
           ),
           IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),

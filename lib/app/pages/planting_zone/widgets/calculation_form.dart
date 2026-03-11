@@ -1,5 +1,6 @@
 import 'package:agro_info/app/common/enums/state_enum.dart';
 import 'package:agro_info/app/common/models/agritec_crop.dart';
+import 'package:agro_info/app/common/models/city.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/widgets/app_dropdown_menu.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,19 @@ class CalculationForm extends StatefulWidget {
 
 class _CalculationFormState extends State<CalculationForm> {
   TextEditingController stateController = TextEditingController();
+  StateEnum? selectedState;
   TextEditingController cityController = TextEditingController();
-  TextEditingController cultureController = TextEditingController();
+  TextEditingController cropController = TextEditingController();
   TextEditingController riskController = TextEditingController();
 
   List<AgritecCrop>? cropies;
+  List<City>? cities;
 
-  void fetchCities(StateEnum state) {
-    widget.agriTecService.getCities(state);
+  void fetchCities(StateEnum state) async {
+    List<City> newCities = await widget.agriTecService.getCities(state);
+    setState(() {
+      cities = newCities;
+    });
   }
 
   void fetchCropies() async {
@@ -29,6 +35,24 @@ class _CalculationFormState extends State<CalculationForm> {
     setState(() {
       cropies = newCropies;
     });
+  }
+
+  void handleOnSelectNewState(StateEnum? newState) {
+    if (selectedState == newState) {
+      return;
+    }
+
+    selectedState = newState;
+
+    if (newState == null) {
+      return;
+    }
+
+    cityController.clear();
+    setState(() {
+      cities = null;
+    });
+    fetchCities(newState);
   }
 
   @override
@@ -68,6 +92,8 @@ class _CalculationFormState extends State<CalculationForm> {
                 Expanded(
                   flex: 2,
                   child: AppDropdownMenu(
+                    onSelected: handleOnSelectNewState,
+                    controller: stateController,
                     label: Text("Estado"),
                     hintText: "Selecione o Estado",
                     prefixIcon: Icon(Icons.public),
@@ -86,33 +112,29 @@ class _CalculationFormState extends State<CalculationForm> {
                 Expanded(
                   flex: 3,
                   child: AppDropdownMenu(
+                    controller: cityController,
                     label: Text("Cidade"),
                     hintText: "Selecione a Cidade",
                     prefixIcon: Icon(Icons.home_work_outlined),
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry<String>(
-                        label: "Test 1",
-                        value: "Teste 1",
-                      ),
-                      DropdownMenuEntry<String>(
-                        label: "Test 2",
-                        value: "Teste 2",
-                      ),
-                      DropdownMenuEntry<String>(
-                        label: "Test 3",
-                        value: "Teste 3",
-                      ),
-                      DropdownMenuEntry<String>(
-                        label: "Carregando Cidades...",
-                        value: "Teste 1",
-                        enabled: false,
-                      ),
-                    ],
+                    loadingText: "Carregando Cidades...",
+                    emptyText: "Nenhuma Cidade Disponível",
+                    enable: cities != null,
+                    enableSearch: true,
+                    menuHeight: 340,
+                    dropdownMenuEntries: cities
+                        ?.map(
+                          (city) => DropdownMenuEntry<City>(
+                            value: city,
+                            label: city.name,
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ],
             ),
             AppDropdownMenu(
+              controller: cropController,
               label: Text("Cultura"),
               hintText: "Selecione a Cultura",
               prefixIcon: Icon(Icons.grass),
@@ -130,6 +152,7 @@ class _CalculationFormState extends State<CalculationForm> {
                   .toList(),
             ),
             AppDropdownMenu(
+              controller: riskController,
               label: Text("Risco"),
               suffix: Text("%"),
               prefixIcon: Icon(Icons.percent),

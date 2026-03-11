@@ -1,18 +1,18 @@
 import 'package:agro_info/app/common/enums/plague_classification.dart';
-import 'package:agro_info/app/common/models/culture.dart';
+import 'package:agro_info/app/common/models/agrofit_crop.dart';
 import 'package:flutter/material.dart';
 
 class Plague {
   final PlagueClassification classification;
   final String cientificName;
   final List<String> comumName;
-  final List<Culture> culture;
+  final List<AgrofitCrop> crop;
 
   Plague({
     required this.classification,
     required this.cientificName,
     required this.comumName,
-    required this.culture,
+    required this.crop,
   });
 
   factory Plague.fromJson(Map<String, dynamic> json) => Plague(
@@ -21,8 +21,8 @@ class Plague {
     comumName: (json["nome_comum"] as List<dynamic>)
         .map((name) => name.toString())
         .toList(),
-    culture: ((json["cultura"]) as List<dynamic>)
-        .map((json) => Culture.fromJson(json))
+    crop: ((json["cultura"]) as List<dynamic>)
+        .map((json) => AgrofitCrop.fromJson(json))
         .toList(),
   );
 

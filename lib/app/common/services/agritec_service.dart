@@ -12,7 +12,7 @@ abstract class IAgriTecService {
   Future<List<City>> getCities(StateEnum state);
   Future<List<AgritecCrop>> getCropies();
   Future<ZoningResult> calcZone({
-    required int cultureId,
+    required int cropId,
     required int ibgeCode,
     required String risk,
   });
@@ -28,12 +28,12 @@ class AgriTecService implements IAgriTecService {
 
   @override
   Future<ZoningResult> calcZone({
-    required int cultureId,
+    required int cropId,
     required int ibgeCode,
     required String risk,
   }) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/zoneamento?idCultura=$cultureId&codigoIBGE=$ibgeCode&risco=$risk",
+      "$_apiUrl/zoneamento?idCultura=$cropId&codigoIBGE=$ibgeCode&risco=$risk",
     );
     try {
       Response response = await apiService.get(

@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 
 class CalculationForm extends StatefulWidget {
   final AgriTecService agriTecService = AgriTecService();
-  CalculationForm({super.key});
+  final void Function({
+    required int ibgeCode,
+    required String risk,
+    required int cropId,
+  })
+  onCalcRisk;
+  CalculationForm({super.key, required this.onCalcRisk});
 
   @override
   State<CalculationForm> createState() => _CalculationFormState();
@@ -17,8 +23,12 @@ class _CalculationFormState extends State<CalculationForm> {
   TextEditingController stateController = TextEditingController();
   StateEnum? selectedState;
   TextEditingController cityController = TextEditingController();
+  City? selectedCity;
   TextEditingController cropController = TextEditingController();
+  AgritecCrop? selectedCrop;
   TextEditingController riskController = TextEditingController();
+
+  bool buttonIsEnable = false;
 
   List<AgritecCrop>? cropies;
   List<City>? cities;
@@ -37,7 +47,7 @@ class _CalculationFormState extends State<CalculationForm> {
     });
   }
 
-  void handleOnSelectNewState(StateEnum? newState) {
+  void handleOnSelectState(StateEnum? newState) {
     if (selectedState == newState) {
       return;
     }
@@ -55,10 +65,71 @@ class _CalculationFormState extends State<CalculationForm> {
     fetchCities(newState);
   }
 
+  void handleOnSelectCity(City? city) {
+    if (selectedCity == city) {
+      return;
+    }
+
+    selectedCity = city;
+  }
+
+  void handleOnSelectCrop(AgritecCrop? crop) {
+    if (selectedCrop == crop) {
+      return;
+    }
+
+    selectedCrop = crop;
+  }
+
+  void verifyFormValidity() {
+    bool enable = true;
+    if (cityController.text.isEmpty ||
+        cropController.text.isEmpty ||
+        riskController.text.isEmpty) {
+      enable = false;
+    }
+
+    setState(() {
+      buttonIsEnable = enable;
+    });
+  }
+
+  void handleOnCalcRisk() {
+    if (selectedCity == null) {
+      return;
+    }
+    if (selectedCrop == null) {
+      return;
+    }
+    if (riskController.text.isEmpty) {
+      return;
+    }
+
+    widget.onCalcRisk(
+      ibgeCode: selectedCity!.ibgeCode,
+      cropId: selectedCrop!.id,
+      risk: riskController.text,
+    );
+  }
+
   @override
   void initState() {
     fetchCropies();
+
+    cityController.addListener(verifyFormValidity);
+    cropController.addListener(verifyFormValidity);
+    riskController.addListener(verifyFormValidity);
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    stateController.dispose();
+    cityController.dispose();
+    cropController.dispose();
+    riskController.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,7 +163,7 @@ class _CalculationFormState extends State<CalculationForm> {
                 Expanded(
                   flex: 2,
                   child: AppDropdownMenu(
-                    onSelected: handleOnSelectNewState,
+                    onSelected: handleOnSelectState,
                     controller: stateController,
                     label: Text("Estado"),
                     hintText: "Selecione o Estado",
@@ -112,6 +183,7 @@ class _CalculationFormState extends State<CalculationForm> {
                 Expanded(
                   flex: 3,
                   child: AppDropdownMenu(
+                    onSelected: handleOnSelectCity,
                     controller: cityController,
                     label: Text("Cidade"),
                     hintText: "Selecione a Cidade",
@@ -134,6 +206,7 @@ class _CalculationFormState extends State<CalculationForm> {
               ],
             ),
             AppDropdownMenu(
+              onSelected: handleOnSelectCrop,
               controller: cropController,
               label: Text("Cultura"),
               hintText: "Selecione a Cultura",
@@ -157,15 +230,18 @@ class _CalculationFormState extends State<CalculationForm> {
               suffix: Text("%"),
               prefixIcon: Icon(Icons.percent),
               dropdownMenuEntries: [
-                DropdownMenuEntry<String>(label: "20", value: "Teste 1"),
-                DropdownMenuEntry<String>(label: "30", value: "Teste 2"),
-                DropdownMenuEntry<String>(label: "40", value: "Teste 3"),
-                DropdownMenuEntry<String>(label: "Todos", value: "Teste 3"),
+                DropdownMenuEntry<String>(label: "20", value: "20"),
+                DropdownMenuEntry<String>(label: "30", value: "30"),
+                DropdownMenuEntry<String>(label: "40", value: "40"),
+                DropdownMenuEntry<String>(label: "Todos", value: "todos"),
               ],
             ),
           ],
         ),
-        FilledButton(onPressed: () {}, child: Text("Calcular Risco")),
+        FilledButton(
+          onPressed: buttonIsEnable ? handleOnCalcRisk : null,
+          child: Text("Calcular Risco"),
+        ),
       ],
     );
   }

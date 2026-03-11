@@ -22,7 +22,7 @@ class AppRoute extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const PlaguePage());
           case AppRouteEnum.zarcCalc:
             return MaterialPageRoute(
-              builder: (context) => const PlantingZonePage(),
+              builder: (context) => PlantingZonePage(),
             );
           case AppRouteEnum.splash:
             return MaterialPageRoute(builder: (context) => const SplashPage());

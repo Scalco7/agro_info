@@ -10,6 +10,9 @@ class AppDropdownMenu<T> extends StatelessWidget {
   final Widget? suffix;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final double? menuHeight;
+  final bool enableSearch;
+  final bool enable;
 
   const AppDropdownMenu({
     super.key,
@@ -22,6 +25,9 @@ class AppDropdownMenu<T> extends StatelessWidget {
     this.suffix,
     this.suffixIcon,
     this.prefixIcon,
+    this.menuHeight,
+    this.enableSearch = false,
+    this.enable = true,
   });
 
   @override
@@ -30,6 +36,10 @@ class AppDropdownMenu<T> extends StatelessWidget {
       expandedInsets: EdgeInsets.zero,
       dropdownMenuEntries: dropdownMenuEntries,
       controller: controller,
+      enableSearch: enableSearch,
+      requestFocusOnTap: enableSearch,
+      enabled: enable,
+      menuHeight: menuHeight,
       decorationBuilder: (context, controller) => InputDecoration(
         label: label,
         hintText: hintText,

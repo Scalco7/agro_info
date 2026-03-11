@@ -43,6 +43,9 @@ class _CalculationFormState extends State<CalculationForm> {
                   child: AppDropdownMenu(
                     label: Text("Estado"),
                     hintText: "Selecione o Estado",
+                    prefixIcon: Icon(Icons.public),
+                    enableSearch: true,
+                    menuHeight: 340,
                     dropdownMenuEntries: StateEnum.values
                         .map(
                           (state) => DropdownMenuEntry<StateEnum>(
@@ -56,7 +59,9 @@ class _CalculationFormState extends State<CalculationForm> {
                 Expanded(
                   flex: 3,
                   child: AppDropdownMenu(
-                    label: Text("Cidades"),
+                    label: Text("Cidade"),
+                    hintText: "Selecione a Cidade",
+                    prefixIcon: Icon(Icons.home_work_outlined),
                     dropdownMenuEntries: [
                       DropdownMenuEntry<String>(
                         label: "Test 1",
@@ -76,7 +81,9 @@ class _CalculationFormState extends State<CalculationForm> {
               ],
             ),
             AppDropdownMenu(
-              label: Text("Culturas"),
+              label: Text("Cultura"),
+              hintText: "Selecione a Cultura",
+              prefixIcon: Icon(Icons.grass),
               dropdownMenuEntries: [
                 DropdownMenuEntry<String>(label: "Test 1", value: "Teste 1"),
                 DropdownMenuEntry<String>(label: "Test 2", value: "Teste 2"),
@@ -86,6 +93,7 @@ class _CalculationFormState extends State<CalculationForm> {
             AppDropdownMenu(
               label: Text("Risco"),
               suffix: Text("%"),
+              prefixIcon: Icon(Icons.percent),
               dropdownMenuEntries: [
                 DropdownMenuEntry<String>(label: "20", value: "Teste 1"),
                 DropdownMenuEntry<String>(label: "30", value: "Teste 2"),

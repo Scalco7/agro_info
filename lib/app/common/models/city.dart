@@ -6,7 +6,7 @@ class City {
   final int longitude;
   final String soyRegion;
   final String wheatRegion;
-  final String updatedAt;
+  final String? updatedAt;
 
   City({
     required this.ibgeCode,

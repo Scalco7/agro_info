@@ -44,7 +44,7 @@ class AgriTecService implements IAgriTecService {
       if (response.statusCode != 200) {
         throw Exception("Erro ao calcular risco");
       }
-      ZoningResult zoningResponse = ZoningResult.fromJson(data[0]);
+      ZoningResult zoningResponse = ZoningResult.fromJson(data["data"][0]);
       return zoningResponse;
     } catch (e) {
       rethrow;
@@ -67,7 +67,7 @@ class AgriTecService implements IAgriTecService {
       }
       List<City> cities = [];
 
-      for (Map<String, dynamic> index in data) {
+      for (Map<String, dynamic> index in data["data"]) {
         cities.add(City.fromJson(index));
       }
       return cities;
@@ -90,7 +90,7 @@ class AgriTecService implements IAgriTecService {
       }
       List<AgritecCrop> cropies = [];
 
-      for (Map<String, dynamic> index in data) {
+      for (Map<String, dynamic> index in data["data"]) {
         cropies.add(AgritecCrop.fromJson(index));
       }
       return cropies;

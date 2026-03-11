@@ -11,7 +11,7 @@ class AgritecCrop {
   final bool hasFertilizing;
   final bool isSoy;
   final bool isWheat;
-  final String updatedAt;
+  final String? updatedAt;
 
   AgritecCrop({
     required this.id,

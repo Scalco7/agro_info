@@ -1,15 +1,42 @@
 import 'package:agro_info/app/common/enums/state_enum.dart';
+import 'package:agro_info/app/common/models/agritec_crop.dart';
+import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/widgets/app_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 
 class CalculationForm extends StatefulWidget {
-  const CalculationForm({super.key});
+  final AgriTecService agriTecService = AgriTecService();
+  CalculationForm({super.key});
 
   @override
   State<CalculationForm> createState() => _CalculationFormState();
 }
 
 class _CalculationFormState extends State<CalculationForm> {
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController cultureController = TextEditingController();
+  TextEditingController riskController = TextEditingController();
+
+  List<AgritecCrop>? cropies;
+
+  void fetchCities(StateEnum state) {
+    widget.agriTecService.getCities(state);
+  }
+
+  void fetchCropies() async {
+    List<AgritecCrop> newCropies = await widget.agriTecService.getCropies();
+    setState(() {
+      cropies = newCropies;
+    });
+  }
+
+  @override
+  void initState() {
+    fetchCropies();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,6 +102,11 @@ class _CalculationFormState extends State<CalculationForm> {
                         label: "Test 3",
                         value: "Teste 3",
                       ),
+                      DropdownMenuEntry<String>(
+                        label: "Carregando Cidades...",
+                        value: "Teste 1",
+                        enabled: false,
+                      ),
                     ],
                   ),
                 ),
@@ -84,11 +116,18 @@ class _CalculationFormState extends State<CalculationForm> {
               label: Text("Cultura"),
               hintText: "Selecione a Cultura",
               prefixIcon: Icon(Icons.grass),
-              dropdownMenuEntries: [
-                DropdownMenuEntry<String>(label: "Test 1", value: "Teste 1"),
-                DropdownMenuEntry<String>(label: "Test 2", value: "Teste 2"),
-                DropdownMenuEntry<String>(label: "Test 3", value: "Teste 3"),
-              ],
+              enableSearch: true,
+              menuHeight: 260,
+              loadingText: "Carregando Culturas...",
+              emptyText: "Nenhuma Cultura Disponível",
+              dropdownMenuEntries: cropies
+                  ?.map(
+                    (crop) => DropdownMenuEntry<AgritecCrop>(
+                      value: crop,
+                      label: crop.name,
+                    ),
+                  )
+                  .toList(),
             ),
             AppDropdownMenu(
               label: Text("Risco"),

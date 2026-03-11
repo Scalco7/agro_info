@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppDropdownMenu<T> extends StatelessWidget {
-  final List<DropdownMenuEntry<T>> dropdownMenuEntries;
+  final List<DropdownMenuEntry<T>>? dropdownMenuEntries;
   final TextEditingController? controller;
   final Widget? label;
   final String? hintText;
@@ -11,12 +11,14 @@ class AppDropdownMenu<T> extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final double? menuHeight;
+  final String loadingText;
+  final String emptyText;
   final bool enableSearch;
   final bool enable;
 
   const AppDropdownMenu({
     super.key,
-    required this.dropdownMenuEntries,
+    this.dropdownMenuEntries,
     this.controller,
     this.label,
     this.hintText,
@@ -26,6 +28,8 @@ class AppDropdownMenu<T> extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.menuHeight,
+    this.loadingText = "Carregando...",
+    this.emptyText = "Nenhuma opção dsponível",
     this.enableSearch = false,
     this.enable = true,
   });
@@ -34,7 +38,11 @@ class AppDropdownMenu<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownMenu(
       expandedInsets: EdgeInsets.zero,
-      dropdownMenuEntries: dropdownMenuEntries,
+      dropdownMenuEntries: dropdownMenuEntries == null
+          ? [DropdownMenuEntry(value: "", label: loadingText, enabled: false)]
+          : dropdownMenuEntries!.isEmpty
+          ? [DropdownMenuEntry(value: "", label: emptyText, enabled: false)]
+          : dropdownMenuEntries!,
       controller: controller,
       enableSearch: enableSearch,
       requestFocusOnTap: enableSearch,

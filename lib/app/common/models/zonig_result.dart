@@ -58,4 +58,26 @@ class ZoningResult {
       ordinance: json["portaria"],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'city': city,
+      'state': state,
+      'crop': crop,
+      'cropCompleteName': cropCompleteName,
+      'cropHarvest': cropHarvest,
+      'cropCultivation': cropCultivation,
+      'cropClimate': cropClimate,
+      'cycle': cycle,
+      'ground': ground,
+      'startDay': startDay,
+      'startMonth': startMonth,
+      'endDay': endDay,
+      'endMonth': endMonth,
+      'harvestStart': harvestStart,
+      'harvestEnd': harvestEnd,
+      'risk': risk,
+      'ordinance': ordinance,
+    };
+  }
 }

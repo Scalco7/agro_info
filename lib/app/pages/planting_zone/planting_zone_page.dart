@@ -16,12 +16,12 @@ class PlantingZonePage extends StatefulWidget {
 class _PlantingZonePageState extends State<PlantingZonePage> {
   ZoningResult? zoningResult;
 
-  void handleOnCalcRisk({
+  void handleOnCalcDates({
     required int ibgeCode,
     required String risk,
     required int cropId,
   }) async {
-    ZoningResult newResult = await widget.agriTecService.calcZone(
+    ZoningResult newResult = await widget.agriTecService.getPlantingDateByFailingRisk(
       cropId: cropId,
       ibgeCode: ibgeCode,
       risk: risk,
@@ -38,7 +38,7 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Calculo de Risco',
+        title: 'Calculo de Datas de Plantio',
         icon: Icons.agriculture_outlined,
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -53,7 +53,7 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
         child: Column(
           spacing: 40,
           children: [
-            CalculationForm(onCalcRisk: handleOnCalcRisk),
+            CalculationForm(onCalcDates: handleOnCalcDates),
             Text("Risco ${zoningResult?.risk.toString() ?? 0}%"),
           ],
         ),

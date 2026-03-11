@@ -11,7 +11,7 @@ import 'package:http/http.dart';
 abstract class IAgriTecService {
   Future<List<City>> getCities(StateEnum state);
   Future<List<AgritecCrop>> getCropies();
-  Future<ZoningResult> calcZone({
+  Future<ZoningResult> getPlantingDateByFailingRisk({
     required int cropId,
     required int ibgeCode,
     required String risk,
@@ -27,7 +27,7 @@ class AgriTecService implements IAgriTecService {
   factory AgriTecService() => _instance;
 
   @override
-  Future<ZoningResult> calcZone({
+  Future<ZoningResult> getPlantingDateByFailingRisk({
     required int cropId,
     required int ibgeCode,
     required String risk,
@@ -42,7 +42,7 @@ class AgriTecService implements IAgriTecService {
       );
       var data = jsonDecode(response.body.toString());
       if (response.statusCode != 200) {
-        throw Exception("Erro ao calcular risco");
+        throw Exception("Erro ao calcular as datas de plantio");
       }
       ZoningResult zoningResponse = ZoningResult.fromJson(data["data"][0]);
       return zoningResponse;

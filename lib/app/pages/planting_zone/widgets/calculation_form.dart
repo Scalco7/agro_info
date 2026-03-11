@@ -12,8 +12,8 @@ class CalculationForm extends StatefulWidget {
     required String risk,
     required int cropId,
   })
-  onCalcRisk;
-  CalculationForm({super.key, required this.onCalcRisk});
+  onCalcDates;
+  CalculationForm({super.key, required this.onCalcDates});
 
   @override
   State<CalculationForm> createState() => _CalculationFormState();
@@ -105,7 +105,7 @@ class _CalculationFormState extends State<CalculationForm> {
       return;
     }
 
-    widget.onCalcRisk(
+    widget.onCalcDates(
       ibgeCode: selectedCity!.ibgeCode,
       cropId: selectedCrop!.id,
       risk: riskController.text,
@@ -143,7 +143,7 @@ class _CalculationFormState extends State<CalculationForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Calculo do Risco de Plantio",
+              "Calculo de Datas de Plantio",
               style: TextStyle(fontWeight: FontWeight(600), fontSize: 20),
             ),
             Text(
@@ -226,7 +226,7 @@ class _CalculationFormState extends State<CalculationForm> {
             ),
             AppDropdownMenu(
               controller: riskController,
-              label: Text("Risco"),
+              label: Text("Risco de Insucesso"),
               suffix: Text("%"),
               prefixIcon: Icon(Icons.percent),
               dropdownMenuEntries: [

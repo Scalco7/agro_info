@@ -42,7 +42,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.agriculture_outlined),
-            label: "Calculo de Risco",
+            label: "Calculo de Plantio",
           ),
         ],
       ),

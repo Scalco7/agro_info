@@ -2,8 +2,8 @@ class City {
   final int ibgeCode;
   final String name;
   final String state;
-  final int latitude;
-  final int longitude;
+  final double? latitude;
+  final double? longitude;
   final String soyRegion;
   final String wheatRegion;
   final String? updatedAt;

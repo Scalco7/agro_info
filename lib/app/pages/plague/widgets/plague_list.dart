@@ -42,7 +42,7 @@ class PlagueList extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight(500), fontSize: 16),
                 ),
                 if (plagueProvider.searchController.text.isNotEmpty)
-                  ElevatedButton(
+                  FilledButton(
                     onPressed: () {
                       plagueProvider.searchController.clear();
                     },

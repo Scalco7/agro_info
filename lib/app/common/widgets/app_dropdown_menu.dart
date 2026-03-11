@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppDropdownMenu<T> extends StatelessWidget {
+  final void Function(T?)? onSelected;
   final List<DropdownMenuEntry<T>>? dropdownMenuEntries;
   final TextEditingController? controller;
   final Widget? label;
@@ -18,6 +19,7 @@ class AppDropdownMenu<T> extends StatelessWidget {
 
   const AppDropdownMenu({
     super.key,
+    this.onSelected,
     this.dropdownMenuEntries,
     this.controller,
     this.label,
@@ -36,20 +38,27 @@ class AppDropdownMenu<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownMenu(
+    bool isLoading = dropdownMenuEntries == null;
+    bool isEmpty = dropdownMenuEntries != null && dropdownMenuEntries!.isEmpty;
+    Widget? widgetLabel = enable
+        ? isLoading
+              ? Text(loadingText)
+              : isEmpty
+              ? Text(emptyText)
+              : label
+        : label;
+
+    return DropdownMenu<T>(
+      onSelected: onSelected,
       expandedInsets: EdgeInsets.zero,
-      dropdownMenuEntries: dropdownMenuEntries == null
-          ? [DropdownMenuEntry(value: "", label: loadingText, enabled: false)]
-          : dropdownMenuEntries!.isEmpty
-          ? [DropdownMenuEntry(value: "", label: emptyText, enabled: false)]
-          : dropdownMenuEntries!,
+      dropdownMenuEntries: isLoading || isEmpty ? [] : dropdownMenuEntries!,
       controller: controller,
       enableSearch: enableSearch,
       requestFocusOnTap: enableSearch,
-      enabled: enable,
+      enabled: enable && !isLoading && !isEmpty,
       menuHeight: menuHeight,
       decorationBuilder: (context, controller) => InputDecoration(
-        label: label,
+        label: widgetLabel,
         hintText: hintText,
         helperText: helperText,
         errorText: errorText,

@@ -16,7 +16,7 @@ class SearchContainer extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              onChanged: (value) => plagueProvider.searchTerm = value,
+              controller: plagueProvider.searchController,
               decoration: InputDecoration(
                 labelText: "Pesquisar Pragas",
                 prefixIcon: Icon(Icons.search_outlined),

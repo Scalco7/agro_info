@@ -5,11 +5,20 @@ import 'package:flutter/material.dart';
 class PlagueProvider with ChangeNotifier {
   final AgroFitService agrofitService = AgroFitService();
 
-  String _searchTerm = "";
+  final TextEditingController _searchController = TextEditingController(text: "");
   List<Plague>? _plagues;
 
   PlagueProvider() {
+    _searchController.addListener(() {
+      notifyListeners();
+    });
     _fetchPlagues();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   void _fetchPlagues() async {
@@ -17,8 +26,8 @@ class PlagueProvider with ChangeNotifier {
   }
 
   List<Plague>? get plagues {
-    if (searchTerm.isNotEmpty && _plagues != null) {
-      String lowerTerm = searchTerm.toLowerCase();
+    if (_searchController.text.isNotEmpty && _plagues != null) {
+      String lowerTerm = _searchController.text.toLowerCase();
       return _plagues!
           .where(
             (p) =>
@@ -36,10 +45,5 @@ class PlagueProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String get searchTerm => _searchTerm;
-
-  set searchTerm(String searchTerm) {
-    _searchTerm = searchTerm;
-    notifyListeners();
-  }
+  TextEditingController get searchController => _searchController;
 }

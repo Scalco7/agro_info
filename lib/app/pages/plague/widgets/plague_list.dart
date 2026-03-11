@@ -41,10 +41,10 @@ class PlagueList extends StatelessWidget {
                   "Nenhuma praga encontrada!",
                   style: TextStyle(fontWeight: FontWeight(500), fontSize: 16),
                 ),
-                if (plagueProvider.searchTerm.isNotEmpty)
+                if (plagueProvider.searchController.text.isNotEmpty)
                   ElevatedButton(
                     onPressed: () {
-                      plagueProvider.searchTerm = "";
+                      plagueProvider.searchController.clear();
                     },
                     child: Text("Limpar Busca"),
                   ),

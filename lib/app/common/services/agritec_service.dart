@@ -19,8 +19,12 @@ abstract class IAgriTecService {
 }
 
 class AgriTecService implements IAgriTecService {
+  static final AgriTecService _instance = AgriTecService._internal();
   String get _apiUrl => "https://api.cnptia.embrapa.br/agritec/v2";
   final IApiService apiService = ApiService();
+
+  AgriTecService._internal();
+  factory AgriTecService() => _instance;
 
   @override
   Future<ZoningResult> calcZone({

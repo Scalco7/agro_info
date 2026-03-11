@@ -10,14 +10,21 @@ abstract class IAgroFitService {
 }
 
 class AgroFitService implements IAgroFitService {
+  static final AgroFitService _instance = AgroFitService._internal();
   String get _apiUrl => "https://api.cnptia.embrapa.br/agrofit/v1";
-  IApiService apiService = ApiService();
+  final IApiService apiService = ApiService();
+
+  AgroFitService._internal();
+  factory AgroFitService() => _instance;
 
   @override
   Future<List<Plague>> getPlagues() async {
     Uri uri = Uri.parse("$_apiUrl/pragas");
     try {
-      Response response = await apiService.get(uri, apiKeyType: ApiKeyType.embrapa);
+      Response response = await apiService.get(
+        uri,
+        apiKeyType: ApiKeyType.embrapa,
+      );
       var data = jsonDecode(response.body.toString());
       if (response.statusCode != 200) {
         throw Exception("Erro ao buscar pragas");

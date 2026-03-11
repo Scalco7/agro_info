@@ -30,4 +30,11 @@ enum StateEnum {
   final String name;
   final String acronym;
   const StateEnum(this.name, this.acronym);
+
+  static StateEnum fromName(String name){
+    StateEnum classification = StateEnum.values.firstWhere(
+      (state) => state.name.toLowerCase() == name.toLowerCase()
+    );
+    return classification;
+  }
 }

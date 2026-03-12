@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 
 class PlagueWidget extends StatelessWidget {
   final Plague plague;
-  const PlagueWidget({super.key, required this.plague});
+  final double padding;
+  const PlagueWidget({super.key, required this.plague, this.padding = 10});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
+    return AnimatedPadding(
+      duration: Duration(milliseconds: 300),
+      curve: Curves.linear,
+      padding: EdgeInsets.all(padding),
       child: GestureDetector(
         child: Container(
           width: 100,
           height: 80,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: plague.classification == PlagueClassification.doenca
                 ? Theme.of(context).colorScheme.errorContainer
@@ -49,6 +53,8 @@ class PlagueWidget extends StatelessWidget {
                 Text(
                   plague.comumName[0],
                   textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),

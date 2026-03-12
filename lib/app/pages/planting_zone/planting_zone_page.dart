@@ -22,6 +22,9 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
     required String risk,
     required int cropId,
   }) async {
+    setState(() {
+      zoningResult = null;
+    });
     ZoningResult newResult = await widget.agriTecService
         .getPlantingDateByFailingRisk(
           cropId: cropId,

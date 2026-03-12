@@ -134,115 +134,125 @@ class _CalculationFormState extends State<CalculationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: 40,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Calculo de Datas de Plantio",
-              style: TextStyle(fontWeight: FontWeight(600), fontSize: 20),
-            ),
-            Text(
-              "Calculo Baseado no Zoneamento Agrícola de Risco Climático",
-              style: TextStyle(fontWeight: FontWeight(400), fontSize: 14),
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 26,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 20,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: AppDropdownMenu(
-                    onSelected: handleOnSelectState,
-                    controller: stateController,
-                    label: Text("Estado"),
-                    hintText: "Selecione o Estado",
-                    prefixIcon: Icon(Icons.public),
-                    enableSearch: true,
-                    menuHeight: 340,
-                    dropdownMenuEntries: StateEnum.values
-                        .map(
-                          (state) => DropdownMenuEntry<StateEnum>(
-                            value: state,
-                            label: state.name,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: AppDropdownMenu(
-                    onSelected: handleOnSelectCity,
-                    controller: cityController,
-                    label: Text("Cidade"),
-                    hintText: "Selecione a Cidade",
-                    prefixIcon: Icon(Icons.home_work_outlined),
-                    loadingText: "Carregando Cidades...",
-                    emptyText: "Nenhuma Cidade Disponível",
-                    enable: cities != null,
-                    enableSearch: true,
-                    menuHeight: 340,
-                    dropdownMenuEntries: cities
-                        ?.map(
-                          (city) => DropdownMenuEntry<City>(
-                            value: city,
-                            label: city.name,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ],
-            ),
-            AppDropdownMenu(
-              onSelected: handleOnSelectCrop,
-              controller: cropController,
-              label: Text("Cultura"),
-              hintText: "Selecione a Cultura",
-              prefixIcon: Icon(Icons.grass),
-              enableSearch: true,
-              menuHeight: 260,
-              loadingText: "Carregando Culturas...",
-              emptyText: "Nenhuma Cultura Disponível",
-              dropdownMenuEntries: cropies
-                  ?.map(
-                    (crop) => DropdownMenuEntry<AgritecCrop>(
-                      value: crop,
-                      label: crop.name,
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 500),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 40,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Calculo de Datas de Plantio",
+                style: TextStyle(fontWeight: FontWeight(600), fontSize: 20),
+              ),
+              Text(
+                "Calculo Baseado no Zoneamento Agrícola de Risco Climático",
+                style: TextStyle(fontWeight: FontWeight(400), fontSize: 14),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 26,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 20,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: AppDropdownMenu(
+                      onSelected: handleOnSelectState,
+                      controller: stateController,
+                      label: Text("Estado"),
+                      hintText: "Selecione o Estado",
+                      prefixIcon: Icon(Icons.public),
+                      enableSearch: true,
+                      menuHeight: 340,
+                      dropdownMenuEntries: StateEnum.values
+                          .map(
+                            (state) => DropdownMenuEntry<StateEnum>(
+                              value: state,
+                              label: state.name,
+                            ),
+                          )
+                          .toList(),
                     ),
-                  )
-                  .toList(),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: AppDropdownMenu(
+                      onSelected: handleOnSelectCity,
+                      controller: cityController,
+                      label: Text("Cidade"),
+                      hintText: "Selecione a Cidade",
+                      prefixIcon: Icon(Icons.home_work_outlined),
+                      loadingText: "Carregando Cidades...",
+                      emptyText: "Nenhuma Cidade Disponível",
+                      enable: cities != null,
+                      enableSearch: true,
+                      menuHeight: 340,
+                      dropdownMenuEntries: cities
+                          ?.map(
+                            (city) => DropdownMenuEntry<City>(
+                              value: city,
+                              label: city.name,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
+              AppDropdownMenu(
+                onSelected: handleOnSelectCrop,
+                controller: cropController,
+                label: Text("Cultura"),
+                hintText: "Selecione a Cultura",
+                prefixIcon: Icon(Icons.grass),
+                enableSearch: true,
+                menuHeight: 260,
+                loadingText: "Carregando Culturas...",
+                emptyText: "Nenhuma Cultura Disponível",
+                dropdownMenuEntries: cropies
+                    ?.map(
+                      (crop) => DropdownMenuEntry<AgritecCrop>(
+                        value: crop,
+                        label: crop.name,
+                      ),
+                    )
+                    .toList(),
+              ),
+              AppDropdownMenu(
+                controller: riskController,
+                label: Text("Risco de Insucesso"),
+                suffix: Text("%"),
+                prefixIcon: Icon(Icons.percent),
+                dropdownMenuEntries: [
+                  DropdownMenuEntry<String>(label: "20", value: "20"),
+                  DropdownMenuEntry<String>(label: "30", value: "30"),
+                  DropdownMenuEntry<String>(label: "40", value: "40"),
+                  DropdownMenuEntry<String>(label: "Todos", value: "todos"),
+                ],
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SizedBox(
+              height: 40,
+              child: FilledButton(
+                onPressed: buttonIsEnable ? handleOnCalcRisk : null,
+                child: Text("Calcular Datas de Plantio"),
+              ),
             ),
-            AppDropdownMenu(
-              controller: riskController,
-              label: Text("Risco de Insucesso"),
-              suffix: Text("%"),
-              prefixIcon: Icon(Icons.percent),
-              dropdownMenuEntries: [
-                DropdownMenuEntry<String>(label: "20", value: "20"),
-                DropdownMenuEntry<String>(label: "30", value: "30"),
-                DropdownMenuEntry<String>(label: "40", value: "40"),
-                DropdownMenuEntry<String>(label: "Todos", value: "todos"),
-              ],
-            ),
-          ],
-        ),
-        FilledButton(
-          onPressed: buttonIsEnable ? handleOnCalcRisk : null,
-          child: Text("Calcular Datas de Plantio"),
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

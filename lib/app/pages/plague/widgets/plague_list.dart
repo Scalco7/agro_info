@@ -53,7 +53,7 @@ class PlagueList extends StatelessWidget {
           } else {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 150,
+                maxCrossAxisExtent: 183,
               ),
               itemCount: plagueProvider.plagues!.length,
               padding: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 0),

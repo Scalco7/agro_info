@@ -7,17 +7,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   void onTapRoute(BuildContext context, int index) {
     AppRouteEnum appRoute = AppRouteEnum.fromIndex(index);
-    
-    Navigator.of(
-      context,
-    ).pushReplacementNamed(appRoute.name);
+
+    Navigator.of(context).pushReplacementNamed(appRoute.name);
   }
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    bool isLarge = mediaQuery.size.width > 720;
+
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(isLarge ? 10 : 30),
+        ),
         boxShadow: [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.3),

@@ -36,6 +36,9 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+    bool isLarge = mediaQuery.size.width > 1024;
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Calculo de Datas de Plantio',
@@ -50,13 +53,19 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
           right: 10,
           bottom: 20,
         ),
-        child: Column(
-          spacing: 40,
-          children: [
-            CalculationForm(onCalcDates: handleOnCalcDates),
-            if (zoningResult != null)
-              PlantingDatesCard(zoningResult: zoningResult!),
-          ],
+        child: SizedBox(
+          width: mediaQuery.size.width,
+          child: Flex(
+            direction: isLarge ? Axis.horizontal : Axis.vertical,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            spacing: 40,
+            children: [
+              CalculationForm(onCalcDates: handleOnCalcDates),
+              if (zoningResult != null)
+                PlantingDatesCard(zoningResult: zoningResult!),
+            ],
+          ),
         ),
       ),
     );

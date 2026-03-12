@@ -3,6 +3,7 @@ import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/widgets/app_bar.dart';
 import 'package:agro_info/app/common/widgets/bottom_navigation_bar.dart';
 import 'package:agro_info/app/pages/planting_zone/widgets/calculation_form.dart';
+import 'package:agro_info/app/pages/planting_zone/widgets/planting_dates_card.dart';
 import 'package:flutter/material.dart';
 
 class PlantingZonePage extends StatefulWidget {
@@ -21,13 +22,12 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
     required String risk,
     required int cropId,
   }) async {
-    ZoningResult newResult = await widget.agriTecService.getPlantingDateByFailingRisk(
-      cropId: cropId,
-      ibgeCode: ibgeCode,
-      risk: risk,
-    );
-
-    print(newResult.toJson());
+    ZoningResult newResult = await widget.agriTecService
+        .getPlantingDateByFailingRisk(
+          cropId: cropId,
+          ibgeCode: ibgeCode,
+          risk: risk,
+        );
 
     setState(() {
       zoningResult = newResult;
@@ -54,7 +54,8 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
           spacing: 40,
           children: [
             CalculationForm(onCalcDates: handleOnCalcDates),
-            Text("Risco ${zoningResult?.risk.toString() ?? 0}%"),
+            if (zoningResult != null)
+              PlantingDatesCard(zoningResult: zoningResult!),
           ],
         ),
       ),

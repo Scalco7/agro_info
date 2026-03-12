@@ -240,7 +240,7 @@ class _CalculationFormState extends State<CalculationForm> {
         ),
         FilledButton(
           onPressed: buttonIsEnable ? handleOnCalcRisk : null,
-          child: Text("Calcular Risco"),
+          child: Text("Calcular Datas de Plantio"),
         ),
       ],
     );

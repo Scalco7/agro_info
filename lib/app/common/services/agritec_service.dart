@@ -33,7 +33,7 @@ class AgriTecService implements IAgriTecService {
     required String risk,
   }) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/zoneamento?idCultura=$cropId&codigoIBGE=$ibgeCode&risco=$risk",
+      "$_apiUrl/zoneamento?idCultura=$cropId&codigoIBGE=$ibgeCode&risco=${risk.toLowerCase()}",
     );
     try {
       Response response = await apiService.get(

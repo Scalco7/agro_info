@@ -49,25 +49,25 @@ class _PlantingZonePageState extends State<PlantingZonePage> {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(index: 1),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 60,
-          left: 10,
-          right: 10,
-          bottom: 20,
-        ),
-        child: SizedBox(
-          width: mediaQuery.size.width,
-          child: Flex(
-            direction: isLarge ? Axis.horizontal : Axis.vertical,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            spacing: 40,
-            children: [
-              CalculationForm(onCalcDates: handleOnCalcDates),
-              if (zoningResult != null)
-                PlantingDatesCard(zoningResult: zoningResult!),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 50,
+          ),
+          child: SizedBox(
+            width: mediaQuery.size.width,
+            child: Flex(
+              direction: isLarge ? Axis.horizontal : Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              spacing: 40,
+              children: [
+                CalculationForm(onCalcDates: handleOnCalcDates),
+                if (zoningResult != null)
+                  PlantingDatesCard(zoningResult: zoningResult!),
+              ],
+            ),
           ),
         ),
       ),

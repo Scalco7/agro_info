@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return Consumer<DarkThemeProvider>(
       builder: (_, darkThemeProvider, widget) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Agro Info',
           theme: ThemeData(
             useMaterial3: true,

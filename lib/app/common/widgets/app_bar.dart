@@ -15,17 +15,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         spacing: 12,
         children: <Widget>[
-          Icon(icon, size: 26, color: Theme.of(context).colorScheme.onPrimary),
-          Text(
-            title,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontWeight: FontWeight(500),
+          Icon(
+            icon,
+            size: 26,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          Expanded(
+            child: Text(
+              title,
+              textWidthBasis: TextWidthBasis.parent,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight(500),
+              ),
             ),
           ),
         ],
       ),
-      actionsPadding: EdgeInsets.only(right: 40),
+      actionsPadding: EdgeInsets.only(right: 20),
       actions: [
         Consumer<DarkThemeProvider>(
           builder: (context, darkThemeProvider, widget) {
@@ -40,8 +49,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
-
-
 
   @override
   Size get preferredSize => Size(200, 60);

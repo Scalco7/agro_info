@@ -34,7 +34,7 @@ class _PlantingDatesCardState extends State<PlantingDatesCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 500, maxHeight: 300),
+        constraints: BoxConstraints(maxWidth: 500),
         child: AnimatedOpacity(
           duration: Duration(milliseconds: 500),
           opacity: boxOpacity,

@@ -1,6 +1,7 @@
 import 'package:agro_info/app/app.dart';
 import 'package:agro_info/app/common/providers/dark_theme_provider.dart';
-import 'package:agro_info/app/common/providers/plague_provider.dart';
+import 'package:agro_info/app/common/services/agrofit_service.dart';
+import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ void main() {
   
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => PlagueProvider()),
+      ChangeNotifierProvider(create: (_) => PlagueViewmodel(agrofitService: AgroFitService())),
       ChangeNotifierProvider(create: (_) => DarkThemeProvider())
     ], 
     child: const MyApp(),

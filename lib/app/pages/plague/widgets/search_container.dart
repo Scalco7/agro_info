@@ -1,4 +1,4 @@
-import 'package:agro_info/app/common/providers/plague_provider.dart';
+import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
 import 'package:agro_info/app/common/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ class SearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var plagueProvider = Provider.of<PlagueProvider>(context);
+    var searchController = TextEditingController();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -16,11 +16,21 @@ class SearchContainer extends StatelessWidget {
         spacing: 20,
         children: [
           Expanded(
-            child: AppTextField(
-              controller: plagueProvider.searchController,
-              labelText: "Pesquisar Pragas",
-              prefixIcon: Icon(Icons.search_outlined),
-              hintText: "Pesquisar...",
+            child: Consumer<PlagueViewmodel>(
+              builder: (context, plagueViewmodel, widget) {
+                if (plagueViewmodel.searchTerm.isEmpty &&
+                    searchController.text.isNotEmpty) {
+                  searchController.clear();
+                }
+
+                return AppTextField(
+                  controller: searchController,
+                  onChanged: (value) => plagueViewmodel.searchTerm = value,
+                  labelText: "Pesquisar Pragas",
+                  prefixIcon: Icon(Icons.search_outlined),
+                  hintText: "Pesquisar...",
+                );
+              },
             ),
           ),
           IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),

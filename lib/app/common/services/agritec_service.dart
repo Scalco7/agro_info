@@ -40,11 +40,17 @@ class AgriTecService implements IAgriTecService {
         uri,
         apiKeyType: ApiKeyType.embrapa,
       );
-      var data = jsonDecode(response.body.toString());
+      List<dynamic> data = jsonDecode(
+        response.body.toString(),
+      )["data"];
       if (response.statusCode != 200) {
         throw Exception("Erro ao calcular as datas de plantio");
       }
-      ZoningResult zoningResponse = ZoningResult.fromJson(data["data"][0]);
+      if (data.isEmpty) {
+        throw Exception("Nenhuma data de plantio é adequada");
+      }
+
+      ZoningResult zoningResponse = ZoningResult.fromJson(data[0]);
       return zoningResponse;
     } catch (e) {
       rethrow;

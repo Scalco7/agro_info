@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppDropdownMenu<T> extends StatelessWidget {
   final void Function(T?)? onSelected;
-  final List<DropdownMenuEntry<T>>? dropdownMenuEntries;
+  final List<DropdownMenuEntry<T>> dropdownMenuEntries;
   final TextEditingController? controller;
   final Widget? label;
   final String? hintText;
@@ -16,11 +16,12 @@ class AppDropdownMenu<T> extends StatelessWidget {
   final String emptyText;
   final bool enableSearch;
   final bool enable;
+  final bool isLoading;
 
   const AppDropdownMenu({
     super.key,
     this.onSelected,
-    this.dropdownMenuEntries,
+    required this.dropdownMenuEntries,
     this.controller,
     this.label,
     this.hintText,
@@ -34,12 +35,12 @@ class AppDropdownMenu<T> extends StatelessWidget {
     this.emptyText = "Nenhuma opção dsponível",
     this.enableSearch = false,
     this.enable = true,
+this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = dropdownMenuEntries == null;
-    bool isEmpty = dropdownMenuEntries != null && dropdownMenuEntries!.isEmpty;
+    bool isEmpty = dropdownMenuEntries.isEmpty;
     Widget? widgetLabel = enable
         ? isLoading
               ? Text(loadingText)
@@ -51,7 +52,7 @@ class AppDropdownMenu<T> extends StatelessWidget {
     return DropdownMenu<T>(
       onSelected: onSelected,
       expandedInsets: EdgeInsets.zero,
-      dropdownMenuEntries: isLoading || isEmpty ? [] : dropdownMenuEntries!,
+      dropdownMenuEntries: isLoading || isEmpty ? [] : dropdownMenuEntries,
       controller: controller,
       enableSearch: enableSearch,
       requestFocusOnTap: enableSearch,

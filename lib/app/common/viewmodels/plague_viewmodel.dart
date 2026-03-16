@@ -9,7 +9,7 @@ class PlagueViewmodel with ChangeNotifier {
   IPlagueState get state => _state;
   String _searchTerm = "";
 
-  PlagueViewmodel({required this.agrofitService}) {
+  PlagueViewmodel(this.agrofitService) {
     fetchPlagues();
   }
 

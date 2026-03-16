@@ -2,8 +2,11 @@ import 'package:agro_info/app/common/enums/state_enum.dart';
 import 'package:agro_info/app/common/models/agritec_crop.dart';
 import 'package:agro_info/app/common/models/city.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
+import 'package:agro_info/app/common/states/planting_zone_form_state.dart';
+import 'package:agro_info/app/common/viewmodels/planting_zone_viewmodel.dart';
 import 'package:agro_info/app/common/widgets/app_dropdown_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CalculationForm extends StatefulWidget {
   final AgriTecService agriTecService = AgriTecService();
@@ -29,41 +32,6 @@ class _CalculationFormState extends State<CalculationForm> {
   TextEditingController riskController = TextEditingController();
 
   bool buttonIsEnable = false;
-
-  List<AgritecCrop>? cropies;
-  List<City>? cities;
-
-  void fetchCities(StateEnum state) async {
-    List<City> newCities = await widget.agriTecService.getCities(state);
-    setState(() {
-      cities = newCities;
-    });
-  }
-
-  void fetchCropies() async {
-    List<AgritecCrop> newCropies = await widget.agriTecService.getCropies();
-    setState(() {
-      cropies = newCropies;
-    });
-  }
-
-  void handleOnSelectState(StateEnum? newState) {
-    if (selectedState == newState) {
-      return;
-    }
-
-    selectedState = newState;
-
-    if (newState == null) {
-      return;
-    }
-
-    cityController.clear();
-    setState(() {
-      cities = null;
-    });
-    fetchCities(newState);
-  }
 
   void handleOnSelectCity(City? city) {
     if (selectedCity == city) {
@@ -114,13 +82,11 @@ class _CalculationFormState extends State<CalculationForm> {
 
   @override
   void initState() {
-    fetchCropies();
+    super.initState();
 
     cityController.addListener(verifyFormValidity);
     cropController.addListener(verifyFormValidity);
     riskController.addListener(verifyFormValidity);
-
-    super.initState();
   }
 
   @override
@@ -134,6 +100,25 @@ class _CalculationFormState extends State<CalculationForm> {
 
   @override
   Widget build(BuildContext context) {
+    PlantingZoneViewmodel plantingZoneViewmodel =
+        Provider.of<PlantingZoneViewmodel>(context);
+    PlantingZoneFormState formState = plantingZoneViewmodel.state.formState;
+
+    void handleOnSelectState(StateEnum? newState) {
+      if (selectedState == newState) {
+        return;
+      }
+
+      selectedState = newState;
+
+      if (newState == null) {
+        return;
+      }
+
+      cityController.clear();
+      plantingZoneViewmodel.fetchCities(newState);
+    }
+
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 500),
       child: Column(
@@ -193,11 +178,12 @@ class _CalculationFormState extends State<CalculationForm> {
                       prefixIcon: Icon(Icons.home_work_outlined),
                       loadingText: "Carregando Cidades...",
                       emptyText: "Nenhuma Cidade Disponível",
-                      enable: cities != null,
+                      enable: formState.cities.isNotEmpty,
+                      isLoading: formState.isLoadingCitites,
                       enableSearch: true,
                       menuHeight: 340,
-                      dropdownMenuEntries: cities
-                          ?.map(
+                      dropdownMenuEntries: formState.cities
+                          .map(
                             (city) => DropdownMenuEntry<City>(
                               value: city,
                               label: city.name,
@@ -218,8 +204,9 @@ class _CalculationFormState extends State<CalculationForm> {
                 menuHeight: 260,
                 loadingText: "Carregando Culturas...",
                 emptyText: "Nenhuma Cultura Disponível",
-                dropdownMenuEntries: cropies
-                    ?.map(
+                isLoading: formState.isLoadingCropies,
+                dropdownMenuEntries: formState.cropies
+                    .map(
                       (crop) => DropdownMenuEntry<AgritecCrop>(
                         value: crop,
                         label: crop.name,

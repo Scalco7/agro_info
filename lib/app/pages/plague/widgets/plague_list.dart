@@ -117,6 +117,7 @@ class _PlagueListState extends State<PlagueList> {
                       double paddingCoef =
                           (scrollIndex - lineIndex).abs() * 3.5;
                       paddingCoef = paddingCoef > 25 ? 25 : paddingCoef;
+                          paddingCoef = paddingCoef < 0 ? 0 : paddingCoef;
 
                       return PlagueWidget(
                         plague: plagueProvider.plagues![index],

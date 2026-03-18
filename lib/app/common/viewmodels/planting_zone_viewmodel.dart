@@ -1,7 +1,5 @@
 import 'package:agro_info/app/common/enums/state_enum.dart';
-import 'package:agro_info/app/common/models/agritec_crop.dart';
-import 'package:agro_info/app/common/models/city.dart';
-import 'package:agro_info/app/common/models/zonig_result.dart';
+import 'package:agro_info/app/common/models/result.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/states/planting_zone_form_state.dart';
 import 'package:agro_info/app/common/states/planting_zone_state.dart';
@@ -36,41 +34,47 @@ class PlantingZoneViewmodel with ChangeNotifier {
 
     _emit(InitialPlantingZoneState(loadingFormState));
 
-    try {
-      List<City> newCities = await _agriTecService.getCities(state);
-      PlantingZoneFormState newFormState = _state.formState.copyWith(
-        cities: newCities,
-        isLoadingCitites: false,
-      );
+    final apiResult = await _agriTecService.getCities(state);
 
-      _emit(InitialPlantingZoneState(newFormState));
-    } catch (e) {
-      _emit(
-        FailurePlantingZoneState(
-          errorMessage: e.toString(),
-          formState: _state.formState.copyWith(isLoadingCitites: false),
-        ),
-      );
+    switch (apiResult) {
+      case Success(value: var newCities):
+        PlantingZoneFormState newFormState = _state.formState.copyWith(
+          cities: newCities,
+          isLoadingCitites: false,
+        );
+
+        _emit(InitialPlantingZoneState(newFormState));
+        break;
+      case Failure(error: var error):
+        _emit(
+          FailurePlantingZoneState(
+            errorMessage: error.toString(),
+            formState: _state.formState.copyWith(isLoadingCitites: false),
+          ),
+        );
+        break;
     }
   }
 
   void fetchCropies() async {
-    try {
-      List<AgritecCrop> newCropies = await _agriTecService.getCropies();
+    final apiResult = await _agriTecService.getCropies();
 
-      PlantingZoneFormState newFormState = _state.formState.copyWith(
-        cropies: newCropies,
-        isLoadingCropies: false,
-      );
-
-      _emit(InitialPlantingZoneState(newFormState));
-    } catch (e) {
-      _emit(
-        FailurePlantingZoneState(
-          errorMessage: e.toString(),
-          formState: _state.formState.copyWith(isLoadingCropies: false),
-        ),
-      );
+    switch (apiResult) {
+      case Success(value: var newCropies):
+        PlantingZoneFormState newFormState = _state.formState.copyWith(
+          cropies: newCropies,
+          isLoadingCropies: false,
+        );
+        _emit(InitialPlantingZoneState(newFormState));
+        break;
+      case Failure(error: var error):
+        _emit(
+          FailurePlantingZoneState(
+            errorMessage: error.toString(),
+            formState: _state.formState.copyWith(isLoadingCropies: false),
+          ),
+        );
+        break;
     }
   }
 
@@ -81,27 +85,29 @@ class PlantingZoneViewmodel with ChangeNotifier {
   }) async {
     _emit(LoadingPlantingZoneState(_state.formState));
 
-    try {
-      ZoningResult newZoningResult = await _agriTecService
-          .getPlantingDateByFailingRisk(
-            cropId: cropId,
-            ibgeCode: ibgeCode,
-            risk: risk,
-          );
+    final apiResult = await _agriTecService.getPlantingDateByFailingRisk(
+      cropId: cropId,
+      ibgeCode: ibgeCode,
+      risk: risk,
+    );
 
-      _emit(
-        LoadedPlantingZoneState(
-          formState: _state.formState,
-          zoningData: newZoningResult,
-        ),
-      );
-    } catch (e) {
-      _emit(
-        FailurePlantingZoneState(
-          errorMessage: e.toString(),
-          formState: _state.formState,
-        ),
-      );
+    switch (apiResult) {
+      case Success(value: var zoningData):
+        _emit(
+          LoadedPlantingZoneState(
+            formState: _state.formState,
+            zoningData: zoningData,
+          ),
+        );
+        break;
+      case Failure(error: var error):
+        _emit(
+          FailurePlantingZoneState(
+            errorMessage: error.toString(),
+            formState: _state.formState,
+          ),
+        );
+        break;
     }
   }
 }

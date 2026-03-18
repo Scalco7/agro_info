@@ -4,14 +4,15 @@ import 'package:agro_info/app/common/enums/api_key_type.dart';
 import 'package:agro_info/app/common/enums/state_enum.dart';
 import 'package:agro_info/app/common/models/agritec_crop.dart';
 import 'package:agro_info/app/common/models/city.dart';
+import 'package:agro_info/app/common/models/result.dart';
 import 'package:agro_info/app/common/models/zonig_result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
 import 'package:http/http.dart';
 
 abstract class IAgriTecService {
-  Future<List<City>> getCities(StateEnum state);
-  Future<List<AgritecCrop>> getCropies();
-  Future<ZoningResult> getPlantingDateByFailingRisk({
+  Future<Result<List<City>, Exception>> getCities(StateEnum state);
+  Future<Result<List<AgritecCrop>, Exception>> getCropies();
+  Future<Result<ZoningResult, Exception>> getPlantingDateByFailingRisk({
     required int cropId,
     required int ibgeCode,
     required String risk,
@@ -27,7 +28,7 @@ class AgriTecService implements IAgriTecService {
   factory AgriTecService() => _instance;
 
   @override
-  Future<ZoningResult> getPlantingDateByFailingRisk({
+  Future<Result<ZoningResult, Exception>> getPlantingDateByFailingRisk({
     required int cropId,
     required int ibgeCode,
     required String risk,
@@ -40,9 +41,7 @@ class AgriTecService implements IAgriTecService {
         uri,
         apiKeyType: ApiKeyType.embrapa,
       );
-      List<dynamic> data = jsonDecode(
-        response.body.toString(),
-      )["data"];
+      List<dynamic> data = jsonDecode(response.body.toString())["data"];
       if (response.statusCode != 200) {
         throw Exception("Erro ao calcular as datas de plantio");
       }
@@ -51,14 +50,14 @@ class AgriTecService implements IAgriTecService {
       }
 
       ZoningResult zoningResponse = ZoningResult.fromJson(data[0]);
-      return zoningResponse;
-    } catch (e) {
-      rethrow;
+      return Success(zoningResponse);
+    } on Exception catch (e) {
+      return Failure(e);
     }
   }
 
   @override
-  Future<List<City>> getCities(StateEnum state) async {
+  Future<Result<List<City>, Exception>> getCities(StateEnum state) async {
     Uri uri = Uri.parse(
       "$_apiUrl/municipios?uf=${state.acronym}&dataAtualizacao=2018-01-01",
     );
@@ -76,14 +75,14 @@ class AgriTecService implements IAgriTecService {
       for (Map<String, dynamic> index in data["data"]) {
         cities.add(City.fromJson(index));
       }
-      return cities;
-    } catch (e) {
-      rethrow;
+      return Success(cities);
+    } on Exception catch (e) {
+      return Failure(e);
     }
   }
 
   @override
-  Future<List<AgritecCrop>> getCropies() async {
+  Future<Result<List<AgritecCrop>, Exception>> getCropies() async {
     Uri uri = Uri.parse("$_apiUrl/culturas");
     try {
       Response response = await apiService.get(
@@ -99,9 +98,9 @@ class AgriTecService implements IAgriTecService {
       for (Map<String, dynamic> index in data["data"]) {
         cropies.add(AgritecCrop.fromJson(index));
       }
-      return cropies;
-    } catch (e) {
-      rethrow;
+      return Success(cropies);
+    } on Exception catch (e) {
+      return Failure(e);
     }
   }
 }

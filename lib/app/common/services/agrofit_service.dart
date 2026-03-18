@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:agro_info/app/common/enums/api_key_type.dart';
 import 'package:agro_info/app/common/models/plague.dart';
+import 'package:agro_info/app/common/models/result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
 import 'package:http/http.dart';
 
 abstract class IAgroFitService {
-  Future<List<Plague>> getPlagues();
+  Future<Result<List<Plague>, Exception>> getPlagues();
 }
 
 class AgroFitService implements IAgroFitService {
@@ -18,7 +19,7 @@ class AgroFitService implements IAgroFitService {
   factory AgroFitService() => _instance;
 
   @override
-  Future<List<Plague>> getPlagues() async {
+  Future<Result<List<Plague>, Exception>> getPlagues() async {
     Uri uri = Uri.parse("$_apiUrl/pragas");
     try {
       Response response = await apiService.get(
@@ -34,9 +35,9 @@ class AgroFitService implements IAgroFitService {
       for (Map<String, dynamic> index in data) {
         plagues.add(Plague.fromJson(index));
       }
-      return plagues;
-    } catch (e) {
-      rethrow;
+      return Success(plagues);
+    } on Exception catch (e) {
+      return Failure(e);
     }
   }
 }

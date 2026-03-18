@@ -1,4 +1,5 @@
 import 'package:agro_info/app/common/models/plague.dart';
+import 'package:agro_info/app/common/models/result.dart';
 import 'package:agro_info/app/common/services/agrofit_service.dart';
 import 'package:agro_info/app/common/states/plague_state.dart';
 import 'package:flutter/material.dart';
@@ -46,11 +47,16 @@ class PlagueViewmodel with ChangeNotifier {
   void fetchPlagues() async {
     _emit(LoadingPlagueState());
 
-    try {
-      List<Plague> newPlagues = await agrofitService.getPlagues();
-      _emit(LoadedPlagueState(newPlagues));
-    } catch (e) {
-      _emit(ErrorPlagueState(errorMessage: e.toString()));
+    final apiResult = await agrofitService
+        .getPlagues();
+
+    switch (apiResult) {
+      case Success(value: var newPlagues):
+        _emit(LoadedPlagueState(newPlagues));
+        break;
+      case Failure(error: var error):
+        _emit(ErrorPlagueState(errorMessage: error.toString()));
+        break;
     }
   }
 }

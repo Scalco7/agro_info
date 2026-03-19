@@ -55,7 +55,7 @@ class PlagueViewmodel with ChangeNotifier {
           .where(
             (p) =>
                 p.cientificName.toLowerCase().contains(lowerTerm) ||
-                p.comumName.any((n) => n.toLowerCase().contains(lowerTerm)),
+                p.commonNames.any((n) => n.toLowerCase().contains(lowerTerm)),
           )
           .toList();
     }

@@ -1,9 +1,10 @@
 enum PlagueClassification {
-  insetos("insetos"),
-  doenca("doença");
+  insetos("insetos", "Insetos"),
+  doenca("doença", "Doenças");
 
   final String apiName;
-  const PlagueClassification(this.apiName);
+  final String filterName;
+  const PlagueClassification(this.apiName, this.filterName);
 
   static PlagueClassification fromString(String name) {
     PlagueClassification classification = PlagueClassification.values.firstWhere(

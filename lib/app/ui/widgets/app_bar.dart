@@ -9,16 +9,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textColors = colorScheme.onPrimary;
+
     return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      automaticallyImplyLeading: true,
+      foregroundColor: textColors,
+      backgroundColor: colorScheme.primary,
       title: Row(
         spacing: 12,
         children: <Widget>[
           Icon(
             icon,
             size: 26,
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: textColors,
           ),
           Expanded(
             child: Text(
@@ -27,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: textColors,
                 fontWeight: FontWeight(500),
               ),
             ),

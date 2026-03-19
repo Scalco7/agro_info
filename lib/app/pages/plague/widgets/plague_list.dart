@@ -69,7 +69,7 @@ class _PlagueListState extends State<PlagueList> {
                 );
               } else {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       int itemsPerRow = (constraints.maxWidth / maxExtentGrid)

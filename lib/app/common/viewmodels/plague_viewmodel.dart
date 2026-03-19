@@ -1,3 +1,4 @@
+import 'package:agro_info/app/common/enums/app_route_enum.dart';
 import 'package:agro_info/app/common/enums/plague_classification.dart';
 import 'package:agro_info/app/common/models/plague.dart';
 import 'package:agro_info/app/common/resources/result.dart';
@@ -76,6 +77,10 @@ class PlagueViewmodel with ChangeNotifier {
   void clearFilters() {
     _classificationFilters.clear();
     notifyListeners();
+  }
+
+  void goToPlagueDetails(BuildContext context, Plague plague){
+    Navigator.of(context).pushNamed(AppRouteEnum.plagueDetails.name, arguments: plague);
   }
 
   void toggleFilter(PlagueClassification classification) {

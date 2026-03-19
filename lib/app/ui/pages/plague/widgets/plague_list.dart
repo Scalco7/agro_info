@@ -116,6 +116,7 @@ class _PlagueListState extends State<PlagueList> {
                           return PlagueWidget(
                             plague: plagueViewmodel.filteredPlagues[index],
                             padding: padding + paddingCoef,
+                            onPlagueClicked: () => plagueViewmodel.goToPlagueDetails(context, plagueViewmodel.filteredPlagues[index]),
                           );
                         },
                       );

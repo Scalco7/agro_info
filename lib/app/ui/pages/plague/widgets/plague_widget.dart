@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class PlagueWidget extends StatelessWidget {
   final Plague plague;
   final double padding;
-  const PlagueWidget({super.key, required this.plague, this.padding = 10});
+  final void Function()? onPlagueClicked;
+  const PlagueWidget({super.key, required this.plague, this.onPlagueClicked, this.padding = 10});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class PlagueWidget extends StatelessWidget {
         elevation: 2,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () {},
+          onTap: onPlagueClicked,
           child: Container(
             width: 100,
             height: 80,

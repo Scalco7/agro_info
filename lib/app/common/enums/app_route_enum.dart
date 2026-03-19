@@ -1,7 +1,8 @@
 enum AppRouteEnum {
   plague(0, "plague"),
   zarcCalc(1, "zarc-calc"),
-  splash(2, "splash");
+  plagueDetails(2, "plague-details"),
+  splash(3, "splash");
 
   final String name;
   final int routeIndex;

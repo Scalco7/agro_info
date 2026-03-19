@@ -17,11 +17,11 @@ class PlagueWidget extends StatelessWidget {
     final isDoenca = plague.classification == PlagueClassification.doenca;
 
     final backgroundColor = isDoenca
-        ? theme.colorScheme.errorContainer
+        ? theme.colorScheme.tertiaryContainer
         : theme.colorScheme.secondaryContainer;
 
     final contentColor = isDoenca
-        ? theme.colorScheme.onErrorContainer
+        ? theme.colorScheme.onTertiaryContainer
         : theme.colorScheme.onSecondaryContainer;
 
     return AnimatedPadding(

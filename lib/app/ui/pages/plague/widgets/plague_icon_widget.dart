@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PlagueIconWidget extends StatelessWidget {
-  final double iconSize = 28.0;
   final String plagueCientificName;
   final PlagueClassification plagueClassification;
-  final Color color;
+  final Color? color;
+  final double iconSize;
 
   const PlagueIconWidget({
     super.key,
     required this.plagueCientificName,
     required this.plagueClassification,
-    required this.color,
+    this.color,
+    this.iconSize = 28.0,
   });
 
   @override
@@ -71,7 +72,9 @@ class PlagueIconWidget extends StatelessWidget {
         svgPath,
         width: iconSize,
         height: iconSize,
-        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+        colorFilter: color == null
+            ? null
+            : ColorFilter.mode(color!, BlendMode.srcIn),
         placeholderBuilder: (BuildContext context) =>
             Icon(Icons.pest_control_outlined, size: iconSize, color: color),
       );

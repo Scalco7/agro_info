@@ -22,7 +22,7 @@ class PlantingZonePage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Calculo de Datas de Plantio',
-        icon: Icons.agriculture_outlined,
+        icon: Icon(Icons.agriculture_outlined, size: 26),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(index: 1),

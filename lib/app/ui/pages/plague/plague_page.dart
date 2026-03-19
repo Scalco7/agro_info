@@ -10,18 +10,15 @@ class PlaguePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Pragas', icon: Icons.bug_report_outlined),
+      appBar: CustomAppBar(
+        title: 'Pragas',
+        icon: Icon(Icons.bug_report_outlined, size: 26),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(index: 0),
       body: Padding(
         padding: const EdgeInsets.only(top: 40),
-        child: Column(
-          spacing: 20,
-          children: [
-            SearchContainer(),
-            PlagueList(),
-          ],
-        ),
+        child: Column(spacing: 20, children: [SearchContainer(), PlagueList()]),
       ),
     );
   }

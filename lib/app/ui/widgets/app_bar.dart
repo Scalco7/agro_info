@@ -4,36 +4,38 @@ import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final IconData icon;
+  final Widget icon;
   const CustomAppBar({super.key, required this.title, required this.icon});
 
   @override
   build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textColors = colorScheme.onPrimary;
 
     return AppBar(
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: false,
       foregroundColor: textColors,
       backgroundColor: colorScheme.primary,
       title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 12,
         children: <Widget>[
-          Icon(
-            icon,
-            size: 26,
-            color: textColors,
-          ),
+          if (navigator.canPop())
+            IconButton.filled(
+              padding: const EdgeInsets.all(4.0),
+              constraints: BoxConstraints(),
+              icon: Icon(Icons.arrow_back, size: 22),
+              onPressed: () => navigator.pop(),
+            ),
+          icon,
           Expanded(
             child: Text(
               title,
               textWidthBasis: TextWidthBasis.parent,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
-              style: TextStyle(
-                color: textColors,
-                fontWeight: FontWeight(500),
-              ),
+              style: TextStyle(color: textColors, fontWeight: FontWeight(500)),
             ),
           ),
         ],

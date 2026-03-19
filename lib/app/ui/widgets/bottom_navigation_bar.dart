@@ -8,7 +8,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   void onTapRoute(BuildContext context, int index) {
     AppRouteEnum appRoute = AppRouteEnum.fromIndex(index);
 
-    Navigator.of(context).pushReplacementNamed(appRoute.name);
+    Navigator.of(context).pushNamedAndRemoveUntil(appRoute.name, (route) => false);
   }
 
   @override

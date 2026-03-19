@@ -6,6 +6,7 @@ class AgroTheme {
   static ThemeData light = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.light,
       seedColor: _seedColor,
       primary: const Color(0xFF1B5E20),
       secondary: const Color(0xFF8D6E63),
@@ -14,7 +15,6 @@ class AgroTheme {
       onSecondaryContainer: const Color(0xFF002111),
       errorContainer: const Color(0xFFFFDAD6),
       onErrorContainer: const Color(0xFF410002),
-      brightness: Brightness.light,
     ),
   );
 
@@ -22,8 +22,8 @@ class AgroTheme {
     useMaterial3: true,
     cardTheme: CardThemeData(color: Color(0xFF222521), elevation: 0),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: _seedColor,
       brightness: Brightness.dark,
+      seedColor: _seedColor,
       primary: const Color(0xFF81C784),
       onPrimary: const Color(0xFF003310),
       surface: const Color(0xFF1A1C19),

@@ -14,6 +14,8 @@ class Plague {
     required this.crop,
   });
 
+  String get name => comumName[0] == "-" ? cientificName : comumName[0];
+
   factory Plague.fromJson(Map<String, dynamic> json) => Plague(
     classification: PlagueClassification.fromString(json["classificacao"]),
     cientificName: json["nome_cientifico"],

@@ -9,8 +9,10 @@ class PlagueDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
-      appBar: CustomAppBar(title: plague.cientificName, icon: Icons.bug_report_outlined),
+      appBar: CustomAppBar(title: plague.name, icon: Icons.bug_report_outlined),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(index: 0),
       body: Padding(

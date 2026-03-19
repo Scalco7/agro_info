@@ -11,9 +11,6 @@ class PlagueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final plagueName = plague.comumName[0] == "-"
-        ? plague.cientificName
-        : plague.comumName[0];
     final theme = Theme.of(context);
     final isDoenca = plague.classification == PlagueClassification.doenca;
 
@@ -51,7 +48,7 @@ class PlagueWidget extends StatelessWidget {
                   color: contentColor,
                 ),
                 Text(
-                  plagueName,
+                  plague.name,
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

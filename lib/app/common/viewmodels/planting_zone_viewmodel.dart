@@ -1,5 +1,5 @@
 import 'package:agro_info/app/common/enums/state_enum.dart';
-import 'package:agro_info/app/common/models/result.dart';
+import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/states/planting_zone_form_state.dart';
 import 'package:agro_info/app/common/states/planting_zone_state.dart';

@@ -4,7 +4,7 @@ import 'package:agro_info/app/common/models/city.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/states/planting_zone_form_state.dart';
 import 'package:agro_info/app/common/viewmodels/planting_zone_viewmodel.dart';
-import 'package:agro_info/app/common/widgets/app_dropdown_menu.dart';
+import 'package:agro_info/app/ui/widgets/app_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

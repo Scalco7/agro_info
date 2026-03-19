@@ -4,7 +4,7 @@ import 'package:agro_info/app/common/enums/api_key_type.dart';
 import 'package:agro_info/app/common/enums/state_enum.dart';
 import 'package:agro_info/app/common/models/agritec_crop.dart';
 import 'package:agro_info/app/common/models/city.dart';
-import 'package:agro_info/app/common/models/result.dart';
+import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/models/zonig_result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
 import 'package:http/http.dart';

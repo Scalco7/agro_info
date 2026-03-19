@@ -9,28 +9,28 @@ Aplicativo integrado com 2 APIs da EMBRAPA para listar pragas e fazer o calculo 
 Esta aplicação está represetnada em 2 camadas, sendo elas:
 
 **Common:** Responsável por armazenar os arquivos comuns que são utilizados diversas vezes, em diversas páginas.  
-**Pages:** Responsável por armazenar os arquivos de cada página/tela presente na aplicação.
+**UI:** Responsável por armazenar os arquivos de cada página/tela presente na aplicação.
 
 ### Common
 
-A camada common será representada por **Models**, **Services**, **States**, **Viewmodels**, **Enums** e **Widgets**.
-
-- **Models**: Um model é responsável por representar um dado e pode ser agregado a outros mdoels.
-
-- **Services**: Um service é responsável por gerenciar as requisições a APIs externas.
-
-- **States**: Um state é responsável por armazenar os estados disponíveis que uma página pode representar.
-
-- **Viewmodels**: Uma viewmodel é responsável por gerenciar os estados de uma página.
+A camada common será representada por **Models**, **Services**, **States**, **Viewmodels**, **Enums**, **Themes**, **Resources** e **Widgets**.
 
 - **Enums**: Um enum é responsável por representar os dados enumerados onde se tem o conhecimento de quais valores eles podem assumir.
+- **Models**: Um model é responsável por representar um dado e pode ser agregado a outros mdoels.
+- **Resources**: Um resource é responsável por representar os recursos que serão usados.
+- **Services**: Um service é responsável por gerenciar as requisições a APIs externas.
+- **States**: Um state é responsável por armazenar os estados disponíveis que uma página pode representar.
+- **Themes**: Um theme é responsável por armazenar o tema que será usado na aplicação.
+- **Viewmodels**: Uma viewmodel é responsável por gerenciar os estados de uma página.
 
-- **Widgets**: Um widget é responsável por armazenar um componente de UI que será usado em mais de uma page.
 
-### Pages
+### UI
 
-A camada pages já tem diretamente as páginas que a compõem.  
-Uma page é responsável por armazenar os arquivos que constroem a UI dela.
+Camada responsável por armazenar o código de construção de cada tela, sendo reporesentada por **Widgets** e **Pages**.
+
+- **Widgets**: Um widget é responsável por armazenar um componente de UI comum que será usado em mais de uma página.
+- **Pages**: Uma page é responsável por armazenar os arquivos que constroem a UI dela.
+
 
 ## Pré-requisitos
 

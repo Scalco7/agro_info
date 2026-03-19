@@ -1,7 +1,7 @@
 import 'package:agro_info/app/common/enums/app_route_enum.dart';
-import 'package:agro_info/app/pages/plague/plague_page.dart';
-import 'package:agro_info/app/pages/planting_zone/planting_zone_page.dart';
-import 'package:agro_info/app/pages/splash/splash.dart';
+import 'package:agro_info/app/ui/pages/plague/plague_page.dart';
+import 'package:agro_info/app/ui/pages/planting_zone/planting_zone_page.dart';
+import 'package:agro_info/app/ui/pages/splash/splash.dart';
 import 'package:flutter/material.dart';
 
 class AppRoute extends StatelessWidget {

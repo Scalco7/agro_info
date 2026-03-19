@@ -1,6 +1,6 @@
 import 'package:agro_info/app/common/providers/dark_theme_provider.dart';
-import 'package:agro_info/app/common/utils/agro_theme.dart';
-import 'package:agro_info/app/pages/app_route.dart';
+import 'package:agro_info/app/common/themes/agro_theme.dart';
+import 'package:agro_info/app/ui/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,6 +1,6 @@
 import 'package:agro_info/app/common/enums/plague_classification.dart';
 import 'package:agro_info/app/common/models/plague.dart';
-import 'package:agro_info/app/pages/plague/widgets/plague_icon_widget.dart';
+import 'package:agro_info/app/ui/pages/plague/widgets/plague_icon_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlagueWidget extends StatelessWidget {

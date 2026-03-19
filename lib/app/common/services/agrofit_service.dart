@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:agro_info/app/common/enums/api_key_type.dart';
 import 'package:agro_info/app/common/models/plague.dart';
-import 'package:agro_info/app/common/models/result.dart';
+import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
 import 'package:http/http.dart';
 

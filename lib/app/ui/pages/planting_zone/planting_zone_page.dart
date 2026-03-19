@@ -1,12 +1,12 @@
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/states/planting_zone_state.dart';
 import 'package:agro_info/app/common/viewmodels/planting_zone_viewmodel.dart';
-import 'package:agro_info/app/common/widgets/app_bar.dart';
-import 'package:agro_info/app/common/widgets/bottom_navigation_bar.dart';
-import 'package:agro_info/app/pages/planting_zone/widgets/calculation_form.dart';
-import 'package:agro_info/app/pages/planting_zone/widgets/loading_card_widget.dart';
-import 'package:agro_info/app/pages/planting_zone/widgets/planting_dates_card.dart';
-import 'package:agro_info/app/pages/planting_zone/widgets/query_error_widget.dart';
+import 'package:agro_info/app/ui/widgets/app_bar.dart';
+import 'package:agro_info/app/ui/widgets/bottom_navigation_bar.dart';
+import 'package:agro_info/app/ui/pages/planting_zone/widgets/calculation_form.dart';
+import 'package:agro_info/app/ui/pages/planting_zone/widgets/loading_card_widget.dart';
+import 'package:agro_info/app/ui/pages/planting_zone/widgets/planting_dates_card.dart';
+import 'package:agro_info/app/ui/pages/planting_zone/widgets/query_error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

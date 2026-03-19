@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:agro_info/app/common/states/plague_state.dart';
 import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
-import 'package:agro_info/app/pages/plague/widgets/loading_plagues_widget.dart';
-import 'package:agro_info/app/pages/plague/widgets/plague_widget.dart';
+import 'package:agro_info/app/ui/pages/plague/widgets/loading_plagues_widget.dart';
+import 'package:agro_info/app/ui/pages/plague/widgets/plague_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

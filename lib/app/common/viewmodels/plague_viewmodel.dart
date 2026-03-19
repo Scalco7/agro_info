@@ -1,6 +1,6 @@
 import 'package:agro_info/app/common/enums/plague_classification.dart';
 import 'package:agro_info/app/common/models/plague.dart';
-import 'package:agro_info/app/common/models/result.dart';
+import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/agrofit_service.dart';
 import 'package:agro_info/app/common/states/plague_state.dart';
 import 'package:flutter/material.dart';

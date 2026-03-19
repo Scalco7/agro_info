@@ -1,6 +1,6 @@
 import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
-import 'package:agro_info/app/common/widgets/app_text_field.dart';
-import 'package:agro_info/app/pages/plague/widgets/filter_bottom_sheet_widget.dart';
+import 'package:agro_info/app/ui/widgets/app_text_field.dart';
+import 'package:agro_info/app/ui/pages/plague/widgets/filter_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

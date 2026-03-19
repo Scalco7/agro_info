@@ -66,6 +66,7 @@ flutter:
   
   assets:
     - assets/images/        
+    - assets/images/plague_icons/   
     - assets/animations/
 
   # For details regarding adding assets from package dependencies, see

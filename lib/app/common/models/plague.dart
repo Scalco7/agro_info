@@ -1,6 +1,5 @@
 import 'package:agro_info/app/common/enums/plague_classification.dart';
 import 'package:agro_info/app/common/models/agrofit_crop.dart';
-import 'package:flutter/material.dart';
 
 class Plague {
   final PlagueClassification classification;
@@ -25,19 +24,4 @@ class Plague {
         .map((json) => AgrofitCrop.fromJson(json))
         .toList(),
   );
-
-  IconData get icon {
-    String name = comumName[0].toLowerCase();
-    switch (classification) {
-      case PlagueClassification.doenca:
-        return Icons.coronavirus_outlined;
-      case PlagueClassification.insetos:
-        switch (name) {
-          case _ when name.contains("abelha"):
-            return Icons.emoji_nature_outlined;
-          default:
-            return Icons.pest_control_outlined;
-        }
-    }
-  }
 }

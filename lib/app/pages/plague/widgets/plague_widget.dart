@@ -1,5 +1,6 @@
 import 'package:agro_info/app/common/enums/plague_classification.dart';
 import 'package:agro_info/app/common/models/plague.dart';
+import 'package:agro_info/app/pages/plague/widgets/plague_icon_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlagueWidget extends StatelessWidget {
@@ -9,6 +10,9 @@ class PlagueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final plagueName = plague.comumName[0] == "-"
+        ? plague.cientificName
+        : plague.comumName[0];
     final theme = Theme.of(context);
     final isDoenca = plague.classification == PlagueClassification.doenca;
 
@@ -26,9 +30,7 @@ class PlagueWidget extends StatelessWidget {
       padding: EdgeInsets.all(padding),
       child: Material(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(
-          16,
-        ),
+        borderRadius: BorderRadius.circular(16),
         elevation: 2,
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -42,13 +44,13 @@ class PlagueWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 8,
               children: [
-                Icon(
-                  plague.icon,
-                  size: 28,
+                PlagueIconWidget(
+                  plagueCientificName: plague.cientificName,
+                  plagueClassification: plague.classification,
                   color: contentColor,
                 ),
                 Text(
-                  plague.comumName[0],
+                  plagueName,
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

@@ -1,31 +1,48 @@
+import 'package:agro_info/app/common/resources/result.dart';
 import 'package:geolocator/geolocator.dart';
 
-class LocationService {
-  static Future<Position> determinePosition() async {
+abstract class ILocationService {
+  Future<Result<Position, Exception>> determinePosition();
+}
+
+class LocationService implements ILocationService {
+  static final LocationService _instance = LocationService._internal();
+
+  LocationService._internal();
+  factory LocationService() => _instance;
+
+  @override
+  Future<Result<Position, Exception>> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('O GPS está desativado. Por favor, ative-o.');
+      return Failure(Exception('O GPS está desativado. Por favor, ative-o.'));
     }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Permissão de localização negada.');
+        return Failure(Exception('Permissão de localização negada.'));
       }
     }
-    
+
     if (permission == LocationPermission.deniedForever) {
-      return Future.error('As permissões de localização estão permanentemente negadas.');
+      return Failure(
+        Exception(
+          'As permissões de localização estão permanentemente negadas.',
+        ),
+      );
     }
 
-    return await Geolocator.getCurrentPosition(
+    var position = await Geolocator.getCurrentPosition(
       locationSettings: const LocationSettings(
-        accuracy: LocationAccuracy.high,
+        accuracy: LocationAccuracy.medium,
       ),
     );
+
+    return Success(position);
   }
 }

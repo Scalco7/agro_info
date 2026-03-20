@@ -4,10 +4,12 @@ class WeatherDayDetailWidget extends StatelessWidget {
   final String title;
   final String data;
   final String supportText;
+  final Color? textColor;
   const WeatherDayDetailWidget({
     super.key,
     required this.title,
     required this.data,
+    this.textColor,
     this.supportText = "",
   });
 
@@ -17,13 +19,20 @@ class WeatherDayDetailWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 0,
       children: [
-        Text(title, style: TextStyle(fontSize: 8)),
+        Text(title, style: TextStyle(fontSize: 8, color: textColor)),
         Text.rich(
           TextSpan(
             text: data,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+            ),
             children: [
-              TextSpan(text: supportText, style: TextStyle(fontSize: 8)),
+              TextSpan(
+                text: supportText,
+                style: TextStyle(fontSize: 8, color: textColor),
+              ),
             ],
           ),
         ),

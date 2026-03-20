@@ -1,5 +1,6 @@
 import 'package:agro_info/app/common/resources/result.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class ILocationService {
   Future<Result<Position, Exception>> determinePosition();
@@ -37,11 +38,40 @@ class LocationService implements ILocationService {
       );
     }
 
-    var position = await Geolocator.getCurrentPosition(
-      locationSettings: const LocationSettings(
-        accuracy: LocationAccuracy.medium,
-      ),
-    );
+    LocationSettings locationSettings;
+
+    if (kIsWeb) {
+      locationSettings = WebSettings(
+        accuracy: LocationAccuracy.low,
+        timeLimit: const Duration(seconds: 15),
+      );
+    } else {
+      locationSettings = AppleSettings(
+        accuracy: LocationAccuracy.low,
+        distanceFilter: 10,
+        pauseLocationUpdatesAutomatically: true,
+      );
+      locationSettings = AndroidSettings(
+        accuracy: LocationAccuracy.low,
+        distanceFilter: 10,
+        intervalDuration: const Duration(seconds: 5),
+      );
+    }
+
+    Position position;
+
+    try {
+      position = await Geolocator.getCurrentPosition(
+        locationSettings: locationSettings,
+      );
+    } catch (e) {
+      final lastKnown = await Geolocator.getLastKnownPosition();
+      if (lastKnown != null) {
+        position = lastKnown;
+      } else {
+        return Failure(Exception('Erro ao buscar localização: $e'));
+      }
+    }
 
     return Success(position);
   }

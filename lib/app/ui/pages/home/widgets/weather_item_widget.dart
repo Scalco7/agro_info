@@ -10,6 +10,8 @@ class WeatherItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String formattedWeekDay = DateFormat('E', 'pt_BR').format(dayForecast.date);
+    Color conditionColor = dayForecast.day.condition.condition.color;
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     return Material(
       elevation: 4,
@@ -17,57 +19,108 @@ class WeatherItemWidget extends StatelessWidget {
       shadowColor: Colors.black.withValues(alpha: 0.5),
       child: Container(
         width: 140,
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: conditionColor.withValues(alpha: 0.7),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Column(
-          spacing: 16,
-          mainAxisAlignment: MainAxisAlignment.end,
+        child: Stack(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           children: [
-            Column(
-              spacing: 4,
-              children: [
-                Image.network(
-                  dayForecast.day.condition.iconUrl,
-                  width: 50,
-                  height: 50,
+            Positioned(
+              bottom: 0,
+              left: -20,
+              child: Container(
+                width: 180,
+                height: 140,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(80),
+                    bottom: Radius.circular(12),
+                  ),
+                  gradient: LinearGradient(
+                    begin: AlignmentGeometry.topCenter,
+                    end: AlignmentGeometry.bottomCenter,
+                    stops: [0, 0.4, 1],
+                    colors: [
+                      conditionColor.withValues(alpha: 0.1),
+                      conditionColor.withValues(alpha: 0.5),
+                      conditionColor.withValues(alpha: 0.8),
+                    ],
+                  ),
                 ),
-                Column(
-                  spacing: 0,
-                  children: [
-                    Text(
-                      "${dayForecast.day.mintempC}º - ${dayForecast.day.maxtempC}º",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(formattedWeekDay),
-                  ],
-                ),
-              ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                WeatherDayDetailWidget(
-                  data: dayForecast.day.maxwindKph.ceil().toString(),
-                  title: "Vento",
-                  supportText: "km",
-                ),
-                WeatherDayDetailWidget(
-                  data: dayForecast.day.dailyWillItRain.ceil().toString(),
-                  title: "Humidade",
-                  supportText: "%",
-                ),
-                WeatherDayDetailWidget(
-                  data: dayForecast.day.totalprecipMm.ceil().toString(),
-                  title: "Preciptação",
-                  supportText: "Mm",
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              child: Column(
+                spacing: 16,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Column(
+                    spacing: 4,
+                    children: [
+                      Image.network(
+                        dayForecast.day.condition.iconUrl,
+                        width: 50,
+                        height: 50,
+                      ),
+                      Column(
+                        spacing: 0,
+                        children: [
+                          Text.rich(
+                            TextSpan(
+                              text: "${dayForecast.day.mintempC}º",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: colorScheme.onTertiaryContainer,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: " - ",
+                                  style: TextStyle(
+                                    wordSpacing: -1,
+                                    fontSize: 18,
+                                    color: colorScheme.onTertiaryContainer,
+                                  ),
+                                ),
+                                TextSpan(text: "${dayForecast.day.maxtempC}º"),
+                              ],
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(formattedWeekDay),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      WeatherDayDetailWidget(
+                        data: dayForecast.day.maxwindKph.ceil().toString(),
+                        title: "Vento",
+                        supportText: "km",
+                        textColor: colorScheme.onTertiaryContainer,
+                      ),
+                      WeatherDayDetailWidget(
+                        data: dayForecast.day.dailyWillItRain.ceil().toString(),
+                        title: "Humidade",
+                        supportText: "%",
+                        textColor: colorScheme.onTertiaryContainer,
+                      ),
+                      WeatherDayDetailWidget(
+                        data: dayForecast.day.totalprecipMm.ceil().toString(),
+                        title: "Preciptação",
+                        supportText: "Mm",
+                        textColor: colorScheme.onTertiaryContainer,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

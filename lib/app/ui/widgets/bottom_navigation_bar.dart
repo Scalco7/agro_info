@@ -40,6 +40,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
         onTap: (newIndex) => onTapRoute(context, newIndex),
         items: [
           BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.bug_report_outlined),
             label: "Pragas",
           ),

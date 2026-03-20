@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
             FlutterNativeSplash.remove();
             Future.delayed(composition.duration, () {
               if (mounted) {
-                Navigator.of(context).pushReplacementNamed(AppRouteEnum.plague.name);
+                Navigator.of(context).pushReplacementNamed(AppRouteEnum.home.name);
               }
             });
           },

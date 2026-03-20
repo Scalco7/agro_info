@@ -1,8 +1,9 @@
 enum AppRouteEnum {
-  plague(0, "plague"),
-  zarcCalc(1, "zarc-calc"),
-  plagueDetails(2, "plague-details"),
-  splash(3, "splash");
+  home(0, "home"),
+  plague(1, "plague"),
+  zarcCalc(2, "zarc-calc"),
+  plagueDetails(3, "plague-details"),
+  splash(4, "splash");
 
   final String name;
   final int routeIndex;
@@ -10,7 +11,7 @@ enum AppRouteEnum {
   const AppRouteEnum(this.routeIndex, this.name);
 
   static AppRouteEnum fromIndex(int index) {
-    if (index < plague.routeIndex) {
+    if (index < home.routeIndex) {
       throw Exception("Index não corresponde a nenhuma página.");
     }
     if (index > splash.routeIndex) {

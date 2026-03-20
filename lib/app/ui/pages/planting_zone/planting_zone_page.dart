@@ -25,7 +25,7 @@ class PlantingZonePage extends StatelessWidget {
         icon: Icon(Icons.agriculture_outlined, size: 26),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: CustomBottomNavigationBar(index: 1),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 2),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),

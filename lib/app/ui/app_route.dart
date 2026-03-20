@@ -1,5 +1,6 @@
 import 'package:agro_info/app/common/enums/app_route_enum.dart';
 import 'package:agro_info/app/common/models/plague.dart';
+import 'package:agro_info/app/ui/pages/home/home_page.dart';
 import 'package:agro_info/app/ui/pages/plague/plague_page.dart';
 import 'package:agro_info/app/ui/pages/plague_details/plague_details_page.dart';
 import 'package:agro_info/app/ui/pages/planting_zone/planting_zone_page.dart';
@@ -20,6 +21,8 @@ class AppRoute extends StatelessWidget {
 
         AppRouteEnum currentAppRoute = AppRouteEnum.fromName(settings.name!);
         switch (currentAppRoute) {
+          case AppRouteEnum.home:
+            return MaterialPageRoute(builder: (context) => const HomePage());
           case AppRouteEnum.plague:
             return MaterialPageRoute(builder: (context) => const PlaguePage());
           case AppRouteEnum.zarcCalc:

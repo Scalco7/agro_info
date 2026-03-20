@@ -15,7 +15,7 @@ class PlaguePage extends StatelessWidget {
         icon: Icon(Icons.bug_report_outlined, size: 26),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
-      bottomNavigationBar: CustomBottomNavigationBar(index: 0),
+      bottomNavigationBar: CustomBottomNavigationBar(index: 1),
       body: Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Column(spacing: 20, children: [SearchContainer(), PlagueList()]),

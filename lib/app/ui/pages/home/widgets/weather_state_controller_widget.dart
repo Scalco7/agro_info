@@ -10,7 +10,7 @@ class WeatherStateControllerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 240,
+      height: 280,
       child: Consumer<HomeViewmodel>(
         builder: (context, homeViewmodel, widget) {
           IWeatherState state = homeViewmodel.weatherState;

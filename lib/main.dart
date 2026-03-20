@@ -2,6 +2,8 @@ import 'package:agro_info/app/app.dart';
 import 'package:agro_info/app/common/providers/dark_theme_provider.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/services/agrofit_service.dart';
+import 'package:agro_info/app/common/services/weather_service.dart';
+import 'package:agro_info/app/common/viewmodels/home_viewmodel.dart';
 import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
 import 'package:agro_info/app/common/viewmodels/planting_zone_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => HomeViewmodel(WeatherService())),
         ChangeNotifierProvider(
           create: (_) => PlagueViewmodel(AgroFitService()),
         ),

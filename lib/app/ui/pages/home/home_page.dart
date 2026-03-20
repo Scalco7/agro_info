@@ -1,4 +1,5 @@
 import 'package:agro_info/app/common/services/weather_service.dart';
+import 'package:agro_info/app/ui/pages/home/widgets/weather_state_controller_widget.dart';
 import 'package:agro_info/app/ui/widgets/app_bar.dart';
 import 'package:agro_info/app/ui/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             spacing: 20,
             children: [
-              SizedBox(height: 240, child: Placeholder()),
+              WeatherStateControllerWidget(),
               SizedBox(height: 200, child: Placeholder()),
               Placeholder(),
             ],

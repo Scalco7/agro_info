@@ -1,15 +1,21 @@
 import 'package:agro_info/app/common/resources/result.dart';
+import 'package:agro_info/app/common/services/location_service.dart';
 import 'package:agro_info/app/common/services/weather_service.dart';
 import 'package:agro_info/app/common/states/weather_state.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewmodel extends ChangeNotifier {
-  final WeatherService _weatherService;
+  final IWeatherService _weatherService;
+  final ILocationService _locationService;
 
   IWeatherState _weatherState = LoadingWeatherState();
   IWeatherState get weatherState => _weatherState;
 
-  HomeViewmodel(this._weatherService) {
+  HomeViewmodel({
+    required IWeatherService weatherService,
+    required ILocationService locationService,
+  }) : _weatherService = weatherService,
+       _locationService = locationService {
     fetchForecasts();
   }
 
@@ -24,7 +30,16 @@ class HomeViewmodel extends ChangeNotifier {
   void fetchForecasts() async {
     _emit(weatherState: LoadingWeatherState());
 
-    var forecastResult = await _weatherService.getForecast();
+    Result positionResult = await _locationService.determinePosition();
+
+    if (positionResult is Failure) {
+      _emit(weatherState: FailureWeatherState(positionResult.error.toString()));
+      return;
+    }
+
+    var forecastResult = await _weatherService.getForecast(
+      position: (positionResult as Success).value,
+    );
 
     switch (forecastResult) {
       case Success(value: var weather):

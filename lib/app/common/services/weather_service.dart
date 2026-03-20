@@ -3,10 +3,14 @@ import 'dart:convert';
 import 'package:agro_info/app/common/models/weather/weather_forecast_response_model.dart';
 import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
 abstract class IWeatherService {
-  Future<Result<WeatherForecastResponseModel, Exception>> getForecast({int days = 5});
+  Future<Result<WeatherForecastResponseModel, Exception>> getForecast({
+    required Position position,
+    int days = 5,
+  });
 }
 
 class WeatherService implements IWeatherService {
@@ -22,9 +26,12 @@ class WeatherService implements IWeatherService {
   factory WeatherService() => _instance;
 
   @override
-  Future<Result<WeatherForecastResponseModel, Exception>> getForecast({int days = 5}) async {
+  Future<Result<WeatherForecastResponseModel, Exception>> getForecast({
+    required Position position,
+    int days = 5,
+  }) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/forecast.json?key=$_weatherApiKey&q=London&days=$days&aqi=no&alerts=no&tp=24",
+      "$_apiUrl/forecast.json?key=$_weatherApiKey&q=${position.latitude},${position.longitude}&days=$days&aqi=no&alerts=no&tp=24",
     );
     try {
       Response response = await apiService.get(uri);
@@ -32,7 +39,8 @@ class WeatherService implements IWeatherService {
       if (response.statusCode != 200) {
         throw Exception("Erro ao buscar pragas");
       }
-      WeatherForecastResponseModel formattedResponse = WeatherForecastResponseModel.fromJson(decodedData);
+      WeatherForecastResponseModel formattedResponse =
+          WeatherForecastResponseModel.fromJson(decodedData);
       return Success(formattedResponse);
     } on Exception catch (e) {
       return Failure(e);

@@ -2,6 +2,7 @@ import 'package:agro_info/app/app.dart';
 import 'package:agro_info/app/common/providers/dark_theme_provider.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/services/agrofit_service.dart';
+import 'package:agro_info/app/common/services/location_service.dart';
 import 'package:agro_info/app/common/services/weather_service.dart';
 import 'package:agro_info/app/common/viewmodels/home_viewmodel.dart';
 import 'package:agro_info/app/common/viewmodels/plague_viewmodel.dart';
@@ -12,7 +13,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -22,7 +23,12 @@ void main() async{
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => HomeViewmodel(WeatherService())),
+        ChangeNotifierProvider(
+          create: (_) => HomeViewmodel(
+            weatherService: WeatherService(),
+            locationService: LocationService(),
+          ),
+        ),
         ChangeNotifierProvider(
           create: (_) => PlagueViewmodel(AgroFitService()),
         ),

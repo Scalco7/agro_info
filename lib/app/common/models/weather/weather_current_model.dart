@@ -74,7 +74,7 @@ class WeatherCurrentModel {
   factory WeatherCurrentModel.fromJson(Map<String, dynamic> json) {
     return WeatherCurrentModel(
       lastUpdatedEpoch: json['last_updated_epoch'] as int,
-      lastUpdated: json['last_updated'] as DateTime,
+      lastUpdated: DateTime.parse(json['last_updated'] as String),
       tempC: (json['temp_c'] as num).toDouble(),
       tempF: (json['temp_f'] as num).toDouble(),
       isDay: json['is_day'] as int,

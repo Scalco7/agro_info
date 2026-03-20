@@ -16,7 +16,7 @@ class WeatherForecastdayModel {
 
   factory WeatherForecastdayModel.fromJson(Map<String, dynamic> json) {
     return WeatherForecastdayModel(
-      date: json["date"],
+      date: DateTime.parse(json["date"] as String),
       dateEpoch: json["date_epoch"],
       day: WeatherDayModel.fromJson(json["day"]),
       astro: WeatherAstroModel.fromJson(json["astro"]),

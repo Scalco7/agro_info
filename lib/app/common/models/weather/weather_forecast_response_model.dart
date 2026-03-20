@@ -29,9 +29,9 @@ class WeatherForecastModel {
 
   factory WeatherForecastModel.fromJson(Map<String, dynamic> json) {
     return WeatherForecastModel(
-      forecastday: json["forecastday"].map(
-        (Map<String, dynamic> obj) => WeatherForecastdayModel.fromJson(obj),
-      ),
+      forecastday: (json["forecastday"] as List<dynamic>)
+          .map((obj) => WeatherForecastdayModel.fromJson(obj))
+          .toList(),
     );
   }
 }

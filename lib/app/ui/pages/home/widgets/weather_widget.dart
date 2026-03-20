@@ -9,9 +9,6 @@ class WeatherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var colorScheme = Theme.of(context).colorScheme;
-    String imageUrl = weather.current.condition.icon.startsWith('//')
-        ? 'https:${weather.current.condition.icon}'
-        : weather.current.condition.icon;
 
     return Container(
       decoration: BoxDecoration(
@@ -39,16 +36,16 @@ class WeatherWidget extends StatelessWidget {
                   Text(weather.current.condition.text),
                 ],
               ),
-              Image.network(imageUrl, width: 48, height: 48),
+              Image.network(weather.current.condition.iconUrl, width: 48, height: 48),
             ],
           ),
           SizedBox(
-            height: 160,
+            height: 180,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                spacing: 24,
+                spacing: 16,
                 children: weather.forecast.forecastday
                     .map(
                       (dayForecast) =>

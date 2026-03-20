@@ -9,6 +9,8 @@ class WeatherConditionModel {
     required this.code,
   });
 
+  String get iconUrl => icon.startsWith('//') ? "https:$icon" : icon;
+
   factory WeatherConditionModel.fromJson(Map<String, dynamic> json) {
     return WeatherConditionModel(
       text: json['text'] as String,

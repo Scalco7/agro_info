@@ -37,7 +37,7 @@ class WeatherService implements IWeatherService {
       Response response = await apiService.get(uri);
       var decodedData = jsonDecode(response.body.toString());
       if (response.statusCode != 200) {
-        throw Exception("Erro ao buscar pragas");
+        throw Exception("Erro ao buscar o clima");
       }
       WeatherForecastResponseModel formattedResponse =
           WeatherForecastResponseModel.fromJson(decodedData);

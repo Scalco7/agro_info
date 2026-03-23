@@ -1,3 +1,4 @@
+import 'package:agro_info/app/common/models/news/news_model.dart';
 import 'package:agro_info/app/common/models/news/news_response_model.dart';
 import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/location_service.dart';
@@ -26,7 +27,7 @@ class HomeViewmodel extends ChangeNotifier {
        _locationService = locationService,
        _newsService = newsService {
     fetchForecasts();
-    fetchNews();
+    _initFetchNews();
   }
 
   void _emit({IWeatherState? weatherState, INewsState? newsState}) {
@@ -65,20 +66,60 @@ class HomeViewmodel extends ChangeNotifier {
     }
   }
 
-  void fetchNews() async {
+  void loadNewNews() async {
     INewsState state = _newsState;
-    int nextPage = 1;
 
-    if (state is LoadedNewsState) {
-      nextPage = state.page == state.quantityOfPages
-          ? state.page
-          : state.page + 1;
+    if (state is! LoadedNewsState) {
+      _emit(
+        newsState: FailureNewsState(
+          "Não é possível aumentar uma lista sem nada.",
+        ),
+      );
+      return;
     }
 
-    _emit(newsState: LoadingNewsState());
+    if (state.isLoadingMore) {
+      return;
+    }
+
+    if (state.page == state.quantityOfPages) {
+      return;
+    }
+
+    int nextPage = state.page + 1;
+
+    _emit(newsState: state.copyWith(isLoadingMore: true));
 
     Result newsResult = await _newsService.getAggricultureLastNews(
       page: nextPage,
+      pageSize: INewsState.pageSize,
+    );
+
+    if (newsResult is Success) {
+      int quantityOfPages =
+          (newsResult.value.totalResults / INewsState.pageSize).ceil();
+
+      List<NewsModel> newsList = [
+        ...state.newsList,
+        ...newsResult.value.articles,
+      ];
+
+      _emit(
+        newsState: LoadedNewsState(
+          newsList,
+          page: nextPage,
+          quantityOfPages: quantityOfPages,
+        ),
+      );
+    }
+  }
+
+  void _getAggricultureLastNews(
+    int page, [
+    List<NewsModel>? preexistingList,
+  ]) async {
+    Result newsResult = await _newsService.getAggricultureLastNews(
+      page: 1,
       pageSize: INewsState.pageSize,
     );
 
@@ -87,10 +128,13 @@ class HomeViewmodel extends ChangeNotifier {
         int quantityOfPages =
             ((newsData as NewsResponseModel).totalResults / INewsState.pageSize)
                 .ceil();
+        List<NewsModel>? newList = preexistingList == null
+            ? newsData.articles
+            : [...preexistingList, ...newsData.articles];
         _emit(
           newsState: LoadedNewsState(
-            newsData,
-            page: nextPage,
+            newList,
+            page: 1,
             quantityOfPages: quantityOfPages,
           ),
         );
@@ -99,5 +143,10 @@ class HomeViewmodel extends ChangeNotifier {
         _emit(newsState: FailureNewsState(error.toString()));
         break;
     }
+  }
+
+  void _initFetchNews() async {
+    _emit(newsState: LoadingNewsState());
+    _getAggricultureLastNews(1);
   }
 }

@@ -21,7 +21,11 @@ class NewsStateControllerWidget extends StatelessWidget {
             case FailureNewsState():
               return Center(child: Text(state.errorMessage));
             case LoadedNewsState():
-              return NewsWidget(news: state.newsData.articles);
+              return NewsWidget(
+                news: state.newsList,
+                fetchNews: homeViewmodel.loadNewNews,
+                isLoadingMore: state.isLoadingMore,
+              );
           }
         },
       ),

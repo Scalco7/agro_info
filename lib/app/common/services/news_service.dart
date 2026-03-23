@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 abstract class INewsService {
   Future<Result<NewsResponseModel, Exception>> getAggricultureLastNews({
     required int page,
+    required int pageSize,
   });
 }
 
@@ -23,9 +24,10 @@ class NewsService implements INewsService {
   @override
   Future<Result<NewsResponseModel, Exception>> getAggricultureLastNews({
     required int page,
+    required int pageSize,
   }) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/everything?q=agro&language=pt&sortBy=publishedAt&page=$page&pageSize=10",
+      "$_apiUrl/everything?q=agro&language=pt&sortBy=publishedAt&page=$page&pageSize=$pageSize",
     );
     try {
       Response response = await apiService.get(

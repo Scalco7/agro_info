@@ -1,5 +1,5 @@
 import 'package:agro_info/app/common/models/weather/weather_forecast_response_model.dart';
-import 'package:agro_info/app/ui/pages/home/widgets/weather_item_widget.dart';
+import 'package:agro_info/app/ui/pages/home/widgets/weather/weather_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class WeatherWidget extends StatelessWidget {

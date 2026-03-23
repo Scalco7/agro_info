@@ -1,6 +1,6 @@
 import 'package:agro_info/app/common/states/weather_state.dart';
 import 'package:agro_info/app/common/viewmodels/home_viewmodel.dart';
-import 'package:agro_info/app/ui/pages/home/widgets/weather_widget.dart';
+import 'package:agro_info/app/ui/pages/home/widgets/weather/weather_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

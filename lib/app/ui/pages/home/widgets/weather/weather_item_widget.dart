@@ -1,5 +1,5 @@
 import 'package:agro_info/app/common/models/weather/weather_forecastday_model.dart';
-import 'package:agro_info/app/ui/pages/home/widgets/weather_day_detail_widget.dart';
+import 'package:agro_info/app/ui/pages/home/widgets/weather/weather_day_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

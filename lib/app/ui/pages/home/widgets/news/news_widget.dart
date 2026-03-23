@@ -56,17 +56,9 @@ class NewsWidget extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            actualNew.title ?? actualNew.description,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      : NewBoxWidget(newData: widget.news[index]),
                 );
               },
             ),

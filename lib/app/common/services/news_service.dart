@@ -27,7 +27,7 @@ class NewsService implements INewsService {
     required int pageSize,
   }) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/everything?q=agro&language=pt&sortBy=publishedAt&page=$page&pageSize=$pageSize",
+      "$_apiUrl/everything?q=agricultura&language=pt&sortBy=publishedAt&page=$page&pageSize=$pageSize",
     );
     try {
       Response response = await apiService.get(

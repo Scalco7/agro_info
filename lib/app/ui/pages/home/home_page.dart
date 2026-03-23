@@ -1,3 +1,4 @@
+import 'package:agro_info/app/ui/pages/home/widgets/news/news_state_controller_widget.dart';
 import 'package:agro_info/app/ui/pages/home/widgets/weather/weather_state_controller_widget.dart';
 import 'package:agro_info/app/ui/widgets/app_bar.dart';
 import 'package:agro_info/app/ui/widgets/bottom_navigation_bar.dart';
@@ -8,7 +9,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Olá Agricultor',
@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
             spacing: 20,
             children: [
               WeatherStateControllerWidget(),
-              SizedBox(height: 200, child: Placeholder()),
+              NewsStateControllerWidget(),
               Placeholder(),
             ],
           ),

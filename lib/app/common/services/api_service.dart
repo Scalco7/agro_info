@@ -19,6 +19,11 @@ class ApiService implements IApiService {
     defaultValue: 'default_key',
   );
 
+  static const String _newsApiKey = String.fromEnvironment(
+    'NEWS_API_KEY',
+    defaultValue: 'default_key',
+  );
+
   @override
   Future<Response> post(
     Uri uri, {
@@ -60,6 +65,8 @@ class ApiService implements IApiService {
     switch (apiKeyType) {
       case ApiKeyType.embrapa:
         return _embrapaApiKey;
+      case ApiKeyType.newsApi:
+        return _newsApiKey;
     }
   }
 }

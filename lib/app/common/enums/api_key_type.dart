@@ -1,3 +1,4 @@
 enum ApiKeyType{
-  embrapa
+  embrapa,
+  newsApi
 }

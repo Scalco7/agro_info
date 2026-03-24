@@ -6,6 +6,7 @@ import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/location_service.dart';
 import 'package:agro_info/app/common/services/market_service.dart';
 import 'package:agro_info/app/common/services/news_service.dart';
+import 'package:agro_info/app/common/services/storage_service.dart';
 import 'package:agro_info/app/common/services/weather_service.dart';
 import 'package:agro_info/app/common/states/market_state.dart';
 import 'package:agro_info/app/common/states/news_state.dart';
@@ -172,11 +173,13 @@ class HomeViewmodel extends ChangeNotifier {
   void _fetchMarketData() async {
     _emit(marketState: LoadingMarketState());
 
-    List<CommoditiesEnum> commoditiesToFetch = [
-      CommoditiesEnum.aluminum,
-      // CommoditiesEnum.coffee,
-      // CommoditiesEnum.wheat,
-    ];
+    List<CommoditiesEnum> commoditiesToFetch =
+        await StorageService.getSelectedCommodities();
+
+    if (commoditiesToFetch.isEmpty) {
+      _emit(marketState: FailureMarketState("Nenhuma comoddity selecionada."));
+      return;
+    }
 
     for (CommoditiesEnum commodity in commoditiesToFetch) {
       _marketService

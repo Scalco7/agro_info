@@ -6,6 +6,10 @@
 		<string>O Agro Info precisa da sua localização para mostrar a previsão do tempo da sua fazenda.</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>https</string>
+		</array>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>

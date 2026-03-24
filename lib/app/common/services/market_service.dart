@@ -29,7 +29,7 @@ class MarketService implements IMarketservice {
     CommoditiesEnum commodity,
   ) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/query?function=${commodity.apiCode}&interval=monthly&apikey=$_marketApiKey",
+      "$_apiUrl/query?function=${commodity.code}&interval=monthly&apikey=$_marketApiKey",
     );
     try {
       Response response = await apiService.get(uri);

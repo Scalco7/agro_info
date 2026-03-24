@@ -6,9 +6,13 @@ import 'package:agro_info/app/common/resources/result.dart';
 import 'package:agro_info/app/common/services/api_service.dart';
 import 'package:http/http.dart';
 
-sealed class IMarketservice {}
+sealed class IMarketservice {
+  Future<Result<GetCommodityDataResponseModel, Exception>> getCommodityData(
+    CommoditiesEnum commodity,
+  );
+}
 
-class MarketService {
+class MarketService implements IMarketservice {
   static final MarketService _instance = MarketService._internal();
   final String _apiUrl = "https://www.alphavantage.co";
   static const String _marketApiKey = String.fromEnvironment(
@@ -20,11 +24,12 @@ class MarketService {
   MarketService._internal();
   factory MarketService() => _instance;
 
+  @override
   Future<Result<GetCommodityDataResponseModel, Exception>> getCommodityData(
     CommoditiesEnum commodity,
   ) async {
     Uri uri = Uri.parse(
-      "$_apiUrl/function=${commodity.apiCode}&interval=monthly&apikey=$_marketApiKey",
+      "$_apiUrl/query?function=${commodity.apiCode}&interval=monthly&apikey=$_marketApiKey",
     );
     try {
       Response response = await apiService.get(uri);

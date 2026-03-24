@@ -33,9 +33,13 @@ class MarketService implements IMarketservice {
     );
     try {
       Response response = await apiService.get(uri);
-      var decodedData = jsonDecode(response.body.toString());
+      Map<String, dynamic> decodedData = jsonDecode(response.body.toString());
       if (response.statusCode != 200) {
         throw Exception("Erro ao buscar preço da commodity");
+      }
+
+      if (decodedData["Information"] != null) {
+        throw Exception("Limite de requisições diárias atingido.");
       }
 
       GetCommodityDataResponseModel formattedResponse =

@@ -17,16 +17,18 @@ class HomePage extends StatelessWidget {
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       bottomNavigationBar: CustomBottomNavigationBar(index: 0),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: Column(
-            spacing: 20,
-            children: [
-              WeatherStateControllerWidget(),
-              NewsStateControllerWidget(),
-              MarketStateControllerWidget(),
-            ],
+      body: SizedBox(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              spacing: 20,
+              children: [
+                WeatherStateControllerWidget(),
+                NewsStateControllerWidget(),
+                MarketStateControllerWidget(),
+              ],
+            ),
           ),
         ),
       ),

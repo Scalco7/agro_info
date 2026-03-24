@@ -1,31 +1,18 @@
+import 'package:agro_info/app/common/enums/commodities_enum.dart';
+import 'package:agro_info/app/common/models/market/get_commodity_data_response_model.dart';
 import 'package:flutter/material.dart';
 
 class MarketWidget extends StatelessWidget {
-  const MarketWidget({super.key});
+  final Map<CommoditiesEnum, GetCommodityDataResponseModel> commodities;
+  const MarketWidget({super.key, required this.commodities});
 
   @override
   Widget build(BuildContext context) {
-    var colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.tertiaryContainer.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(16),
-        border: BoxBorder.all(color: colorScheme.tertiaryFixed, width: 4),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
-        children: [
-          Text(
-            "Mercado",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-          
-          ),
-          Placeholder(),
-        ],
-      ),
+    return Column(
+      children: commodities.keys.map((commodityEnum) {
+        return Text(commodityEnum.portugueseName);
+      }).toList(),
     );
   }
 }

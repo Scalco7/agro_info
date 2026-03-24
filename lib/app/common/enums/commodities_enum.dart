@@ -9,7 +9,14 @@ enum CommoditiesEnum {
   coffee("Café", "COFFEE");
 
   final String portugueseName;
-  final String apiCode;
+  final String code;
 
-  const CommoditiesEnum(this.portugueseName, this.apiCode);
+  const CommoditiesEnum(this.portugueseName, this.code);
+
+  static CommoditiesEnum fromCode(String commodityCode) {
+     CommoditiesEnum commodity = CommoditiesEnum.values.firstWhere(
+      (element) => element.code == commodityCode.toUpperCase()
+    );
+    return commodity;
+  }
 }

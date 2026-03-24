@@ -24,6 +24,9 @@ class MarketStateControllerWidget extends StatelessWidget {
     var colorScheme = Theme.of(context).colorScheme;
 
     return Container(
+      constraints: BoxConstraints(
+        minHeight: 200
+      ),
       decoration: BoxDecoration(
         color: colorScheme.tertiaryContainer.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(16),

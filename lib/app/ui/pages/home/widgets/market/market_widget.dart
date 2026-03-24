@@ -8,7 +8,6 @@ class MarketWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: commodities.keys.map((commodityEnum) {
         return Text(commodityEnum.portugueseName);

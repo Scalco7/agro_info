@@ -3,6 +3,7 @@ import 'package:agro_info/app/common/providers/dark_theme_provider.dart';
 import 'package:agro_info/app/common/services/agritec_service.dart';
 import 'package:agro_info/app/common/services/agrofit_service.dart';
 import 'package:agro_info/app/common/services/location_service.dart';
+import 'package:agro_info/app/common/services/market_service.dart';
 import 'package:agro_info/app/common/services/news_service.dart';
 import 'package:agro_info/app/common/services/weather_service.dart';
 import 'package:agro_info/app/common/viewmodels/home_viewmodel.dart';
@@ -29,6 +30,7 @@ void main() async {
             weatherService: WeatherService(),
             locationService: LocationService(),
             newsService: NewsService(),
+            marketService: MarketService(),
           ),
         ),
         ChangeNotifierProvider(

@@ -1,3 +1,4 @@
+import 'package:agro_info/app/ui/pages/home/widgets/market/market_state_controller_widget.dart';
 import 'package:agro_info/app/ui/pages/home/widgets/news/news_state_controller_widget.dart';
 import 'package:agro_info/app/ui/pages/home/widgets/weather/weather_state_controller_widget.dart';
 import 'package:agro_info/app/ui/widgets/app_bar.dart';
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
             children: [
               WeatherStateControllerWidget(),
               NewsStateControllerWidget(),
-              Placeholder(),
+              MarketStateControllerWidget(),
             ],
           ),
         ),

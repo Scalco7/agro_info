@@ -56,11 +56,19 @@ Entre na pasta criada
     cd agro_info
 
 ### Quarto Passo  
-
+Sites para conseguir a chave da api:
+ - [Embrapa](https://www.agroapi.cnptia.embrapa.br/store/site/pages/login.jag)
+ - [Weather](https://www.weatherapi.com/my/)
+ - [News](https://newsapi.org/)
+ - [Market Commodities](https://www.alphavantage.co)
+  
 Crie um arquivo config.json na raiz do projeto e utilize o exemplo a seguir como padrão:
 
     {
         "EMBRAPA_API_KEY": "[Sua chave de API]"
+        "WEATHER_API_KEY": "[Sua chave de API]",
+        "NEWS_API_KEY": "[Sua chave de API]",
+        "MARKET_API_KEY": "[Sua chave de API]"
     }
 
 ### Quinto Passo  

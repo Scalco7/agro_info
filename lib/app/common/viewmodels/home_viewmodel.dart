@@ -28,6 +28,9 @@ class HomeViewmodel extends ChangeNotifier {
   IMarketState _marketState = LoadingMarketState();
   IMarketState get marketState => _marketState;
 
+  List<CommoditiesEnum> _selectedCommodities = [];
+  List<CommoditiesEnum> get selectedCommodities => _selectedCommodities;
+
   HomeViewmodel({
     required IWeatherService weatherService,
     required ILocationService locationService,
@@ -40,6 +43,13 @@ class HomeViewmodel extends ChangeNotifier {
     _fetchForecasts();
     _initFetchNews();
     _fetchMarketData();
+    _initCommodities();
+  }
+
+  @override
+  void dispose() async {
+    await StorageService.saveSelectedCommodities(_selectedCommodities);
+    super.dispose();
   }
 
   void _emit({
@@ -214,5 +224,23 @@ class HomeViewmodel extends ChangeNotifier {
         _emit(marketState: FailureMarketState(error.toString()));
         break;
     }
+  }
+
+  void toogleCommodity(CommoditiesEnum commodity) async {
+    if (_selectedCommodities.contains(commodity)) {
+      _selectedCommodities.remove(commodity);
+    } else {
+      _selectedCommodities.add(commodity);
+    }
+
+    await StorageService.saveSelectedCommodities(_selectedCommodities);
+    notifyListeners();
+  }
+
+  void _initCommodities() async {
+    var storagedCommodities = await StorageService.getSelectedCommodities();
+    _selectedCommodities = storagedCommodities;
+
+    notifyListeners();
   }
 }
